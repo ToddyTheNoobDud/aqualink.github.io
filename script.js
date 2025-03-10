@@ -1,86 +1,253 @@
-// Mobile menu toggle
-const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-const sidebar = document.querySelector('.sidebar');
-mobileMenuToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
-});
-// Copy code functionality
-const copyButtons = document.querySelectorAll('.copy-button');
-copyButtons.forEach(button => {
-    button.addEventListener('click', event => {
-        const codeBlock = event.target.closest('.code-block');
-        const codeContent = codeBlock.querySelector('.code-content').textContent;
-        navigator.clipboard.writeText(codeContent).then(() => {
-            button.textContent = 'Copied!'; // Use textContent for performance
-            setTimeout(() => {
-                button.textContent = 'Copy'; // Use textContent for performance
-            }, 2000);
-        });
-    });
-});
-// Background dots animation
-const bgDots = document.getElementById('bg-dots');
-const dotCount = 100;
-const fragment = document.createDocumentFragment(); // Use DocumentFragment for performance
-for (let i = 0; i < dotCount; i++) {
-    const dot = document.createElement('div');
-    dot.classList.add('dot');
-    dot.style.top = `${Math.random() * 100}vh`;
-    dot.style.left = `${Math.random() * 100}vw`;
-    dot.style.animationDelay = `${Math.random() * 2}s`;
-    fragment.appendChild(dot); // Append to fragment
-}
-bgDots.appendChild(fragment); // Append fragment to DOM in one go
-// Smooth scrolling for anchor links
-const anchors = document.querySelectorAll('a[href^="#"]');
-anchors.forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            window.scrollTo({
-                top: targetElement.offsetTop - 80,
-                behavior: 'smooth'
-            });
-            if (sidebar.classList.contains('active')) {
-                sidebar.classList.remove('active');
+document.addEventListener('DOMContentLoaded', () => {
+    const setupNpmDownloads = async () => {
+        try {
+            const response = await fetch('https://api.npmjs.org/downloads/point/last-week/aqualink');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            
+            const downloadsBadge = document.querySelector('.downloads-badge');
+            if (downloadsBadge) {
+                downloadsBadge.src = `https://img.shields.io/badge/downloads-${data.downloads}%20weekly-2962FF?style=flat`;
+            }
+        } catch (error) {
+            console.error('Failed to fetch npm downloads:', error);
+            const downloadsBadge = document.querySelector('.downloads-badge');
+            if (downloadsBadge) {
+                downloadsBadge.src = `https://img.shields.io/badge/downloads-error-FF0000?style=flat`; 
             }
         }
-    });
-});
-// Sidebar category toggle
-const sidebarCategories = document.querySelectorAll('.docs-nav-category-title');
-sidebarCategories.forEach(category => {
-    category.addEventListener('click', () => {
-        const parentCategory = category.parentElement;
-        parentCategory.classList.toggle('active');
-    });
-});
-// Scroll event handling
-const sections = document.querySelectorAll('.doc-section');
-const navLinks = document.querySelectorAll('.docs-nav-link');
-let lastScrollTop = 0; // Keep track of last scroll position
-const handleScroll = () => {
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - 100) {
-            current = section.getAttribute('id');
+    };
+
+    const setupNpmVersion = async () => {
+        try {
+            const response = await fetch('https://registry.npmjs.org/aqualink/latest');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            
+            const versionBadge = document.querySelector('.badge.version');
+            if (versionBadge) {
+                versionBadge.textContent = `v${data.version}`;
+            }
+        } catch (error) {
+            console.error('Failed to fetch npm version:', error);
+            const versionBadge = document.querySelector('.badge.version');
+            if (versionBadge) {
+                versionBadge.textContent = 'Error loading version'; 
+            }
         }
-    });
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').substring(1) === current) {
-            link.classList.add('active');
+    };
+
+    const setupThemeToggle = () => {
+        const themeToggle = document.getElementById('theme-toggle');
+        if (!themeToggle) {
+            console.error('Theme toggle button not found!');
+            return; 
         }
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            document.body.classList.add('theme-transition');
+
+            setTimeout(() => {
+                document.body.classList.remove('theme-transition');
+            }, 300);
+        });
+    };
+
+    const setupSidebarToggle = () => {
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const container = document.querySelector('.container');
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', () => {
+                container.classList.toggle('sidebar-hidden');
+
+                const icon = sidebarToggle.querySelector('i');
+                if (container.classList.contains('sidebar-hidden')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-arrow-right');
+                } else {
+                    icon.classList.remove('fa-arrow-right');
+                    icon.classList.add('fa-bars');
+                }
+
+                localStorage.setItem('sidebar-hidden', container.classList.contains('sidebar-hidden'));
+            });
+        }
+
+        const sidebarHidden = localStorage.getItem('sidebar-hidden') === 'true';
+        if (sidebarHidden) {
+            container.classList.add('sidebar-hidden');
+            const icon = sidebarToggle.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-arrow-right');
+            }
+        }
+    };
+
+    const setupMobileMenu = () => {
+        const menuToggle = document.createElement('button');
+        menuToggle.className = 'mobile-menu-toggle';
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        document.body.appendChild(menuToggle);
+
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            menuToggle.innerHTML = sidebar.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && 
+                !menuToggle.contains(e.target) && 
+                sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+    };
+
+    const setupClipboard = () => {
+        const clipboard = new ClipboardJS('.copy-btn');
+
+        clipboard.on('success', (e) => {
+            const button = e.trigger;
+            const originalHTML = button.innerHTML;
+
+            button.innerHTML = '<i class="fas fa-check"></i>';
+            button.style.color = 'var(--success-color)';
+
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+                button.style.color = '';
+            }, 2000);
+        });
+
+        clipboard.on('error', (e) => {
+            const button = e.trigger;
+            const originalHTML = button.innerHTML;
+
+            button.innerHTML = '<i class="fas fa-times"></i>';
+            button.style.color = 'var(--danger-color)';
+
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+                button.style.color = '';
+            }, 2000);
+        });
+    };
+
+    const setupSearch = () => {
+        const searchInput = document.getElementById('search-input');
+        const navSections = document.querySelectorAll('.nav-section');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+
+            navSections.forEach(section => {
+                const links = section.querySelectorAll('ul li a');
+                let hasVisibleItems = false;
+
+                links.forEach(link => {
+                    const text = link.textContent.toLowerCase();
+                    const listItem = link.parentElement;
+
+                    if (text.includes(searchTerm)) {
+                        listItem.style.display = 'block';
+                        hasVisibleItems = true;
+                    } else {
+                        listItem.style.display = 'none';
+                    }
+                });
+
+                section.querySelector('h3').style.display = 
+                    hasVisibleItems ? 'flex' : 'none';
+            });
+        });
+    };
+
+    const setupSmoothScrolling = () => {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = anchor.getAttribute('href').slice(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    // Close mobile menu if open
+                    const sidebar = document.querySelector('.sidebar');
+                    if (sidebar.classList.contains('active')) {
+                        sidebar.classList.remove('active');
+                        document.querySelector('.mobile-menu-toggle').innerHTML = 
+                            '<i class="fas fa-bars"></i>';
+                    }
+
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    history.pushState(null, '', `#${targetId}`);
+
+                    targetElement.classList.add('highlight');
+                    setTimeout(() => {
+                        targetElement.classList.remove('highlight');
+                    }, 1000);
+                }
+            });
+        });
+    };
+    const setupKeyboardNavigation = () => {
+        const searchInput = document.getElementById('search-input');
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+
+            if (e.key === 'Escape') {
+                const sidebar = document.querySelector('.sidebar');
+                if (sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                    document.querySelector('.mobile-menu-toggle').innerHTML = 
+                        '<i class="fas fa-bars"></i>';
+                }
+            }
+        });
+    };
+
+    setupThemeToggle();
+    setupSidebarToggle();
+    setupMobileMenu();
+    setupClipboard();
+    setupSearch();
+    setupSmoothScrolling();
+    setupKeyboardNavigation();
+    setupNpmDownloads();
+    setupNpmVersion();
+
+    setInterval(setupNpmDownloads, 3600000); 
+    setInterval(setupNpmVersion, 3600000); 
+
+    window.addEventListener('load', () => {
+        document.body.classList.add('loaded');
     });
-};
-window.addEventListener('scroll', () => {
-    // Throttle scroll event
-    if (Math.abs(window.pageYOffset - lastScrollTop) > 50) {
-        handleScroll();
-        lastScrollTop = window.pageYOffset;
-    }
 });
