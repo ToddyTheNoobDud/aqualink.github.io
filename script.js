@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupNpmVersion();
 
     setInterval(setupNpmDownloads, 3600000); 
-    setInterval(setupNpmVersion, 3600000); 
+    setInterval(setupNpmVersion, 3600000);
 
     window.addEventListener('load', () => {
         document.body.classList.add('loaded');
