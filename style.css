@@ -23,6 +23,7 @@
   --transition-speed: 0.3s;
 }
 
+
 [data-theme="light"] {
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
