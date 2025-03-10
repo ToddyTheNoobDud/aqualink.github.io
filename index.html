@@ -1,1220 +1,1013 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aqualink Documentation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <title>AquaLink | Discord Lavalink Client</title>
+    <meta name="description" content="A powerful Lavalink client for Discord.js, designed for high performance and ease of use">
+    <meta name="keywords" content="lavalink, discord.js, music bot, audio streaming">
+    <meta name="author" content="ToddyTheNoobDud">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
 </head>
 <body>
-    <div class="bg-dots" id="bg-dots"></div>
-
-    <header>
-        <div class="logo">
-            <i class="fas fa-music"></i>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-sun light-icon"></i>
+        <i class="fas fa-moon dark-icon"></i>
+    </button>
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+    <header class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-left">
+                <a href="#" class="navbar-brand">
+                    <i class="fas fa-water"></i>
+                    <span>AquaLink</span>
+                </a>
+                <div class="badges">
+                    <img src="https://img.shields.io/npm/v/aqualink.svg?color=2962FF&style=flat" alt="npm version">
+                    <img src="https://img.shields.io/badge/downloads-loading-2962FF?style=flat" alt="npm downloads" class="downloads-badge">
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/ToddyTheNoobDud/AquaLink" class="social-button github" target="_blank" rel="noopener">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://discord.gg/BNrPCvgrCf" class="social-button discord" target="_blank" rel="noopener">
+                    <i class="fab fa-discord"></i>
+                    <span>Discord</span>
+                </a>
+            </div>
         </div>
-        <h1>Aqualink Documentation</h1>
-        <p class="subheading">An lavalink client made for pure performance</p>
-        
-        <nav>
-            <ul>
-                <li><a href="#introduction"><i class="fas fa-book"></i> Documentation</a></li>
-                <li><a href="#player-api"><i class="fas fa-code"></i> API Reference</a></li>
-                <li><a href="#installation"><i class="fas fa-download"></i> Installation</a></li>
-                <li><a href="https://github.com/ToddyTheNoobDud/AquaLink" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
-            </ul>
-        </nav>
     </header>
-
-    <div class="documentation-container">
+    <div class="container">
         <aside class="sidebar">
-            <h3 class="sidebar-title">Documentation</h3>
-            <ul class="docs-nav">
-                <li class="docs-nav-category">
-                    <div class="docs-nav-category-title">
-                        <i class="fas fa-home"></i> Getting Started
-                    </div>
-                    <ul class="docs-nav-items">
-                        <li class="docs-nav-item"><a href="#introduction" class="docs-nav-link">Introduction</a></li>
-                        <li class="docs-nav-item"><a href="#installation" class="docs-nav-link">Installation</a></li>
-                        <li class="docs-nav-item"><a href="#configuration" class="docs-nav-link">Configuration</a></li>
-                        <li class="docs-nav-item"><a href="#basic-usage" class="docs-nav-link">Basic Usage</a></li>
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Search documentation..." id="search-input">
+                </div>  
+            </div>
+
+            <div class="nav-section">
+                <h3>
+                    <i class="fas fa-rocket"></i>
+                    Getting Started
+                </h3>
+                <ul>
+                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="#basic-setup">Basic Setup</a></li>
+                    <li><a href="#quick-start">Quick Start</a></li>
+                    <li><a href="#voice-state">Voice State Updates</a></li>
+                    <li><a href="#voice-connect">Voice Connection</a></li>
+                    <li><a href="#playing-track">Playing Tracks</a></li>
+                    <li><a href="#search-track">Searching Tracks</a></li>
+                    <li><a href="#playback-control">Playback Controls</a></li>
+                    <li><a href="#queue-management">Queue Management</a></li>
+                    <li><a href="#cleanup">Cleanup & Disconnection</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                </ul>
+            </div>
+                <div class="nav-section">
+                    <h3>
+                        <i class="fas fa-cube"></i>
+                        Classes
+                    </h3>
+                    <ul>
+                        <li><a href="#aqualink-class">AquaLink</a></li>
+                        <li><a href="#player-class">Player</a></li>
+                        <li><a href="#queue-class">Queue</a></li>
+                        <li><a href="#node-class">Node</a></li>
                     </ul>
-                </li>
-                <li class="docs-nav-category">
-                    <div class="docs-nav-category-title">
-                        <i class="fas fa-cogs"></i> Advanced Features
-                    </div>
-                    <ul class="docs-nav-items">
-                        <li class="docs-nav-item"><a href="#filters" class="docs-nav-link">Audio Filters</a></li>
-                        <li class="docs-nav-item"><a href="#queue-system" class="docs-nav-link">Queue System</a></li>
-                        <li class="docs-nav-item"><a href="#events" class="docs-nav-link">Events</a></li>
+                </div>
+                <div class="nav-section">
+                    <h3>
+                        <i class="fas fa-star"></i>
+                        Features
+                    </h3>
+                    <ul>
+                        <li><a href="#filters-section">Audio Filters</a></li>
+                        <li><a href="#events-section">Events</a></li>
+                        <li><a href="#error-handling-section">Error Handling</a></li>
                     </ul>
-                </li>
-                <li class="docs-nav-category">
-                    <div class="docs-nav-category-title">
-                        <i class="fas fa-book"></i> API Reference
-                    </div>
-                    <ul class="docs-nav-items">
-                        <li class="docs-nav-item"><a href="#player-api" class="docs-nav-link">Player API</a></li>
-                        <li class="docs-nav-item"><a href="#node-api" class="docs-nav-link">Node API</a></li>
-                        <li class="docs-nav-item"><a href="#track-api" class="docs-nav-link">Track API</a></li>
-                        <li class="docs-nav-item"><a href="#rest-api" class="docs-nav-link">REST API</a></li>
-                        <li class="docs-nav-item"><a href="#aqua-api" class="docs-nav-link">Aqua API</a></li>
-                        
-                    </ul>
-                </li>
-                <li class="docs-nav-category">
-                    <div class="docs-nav-category-title">
-                        <i class="fas fa-question-circle"></i> Troubleshooting
-                    </div>
-                    <ul class="docs-nav-items">
-                        <li class="docs-nav-item"><a href="#faq" class="docs-nav-link">FAQ</a></li>
-                    </ul>
-                </li>
-            </ul>
+                </div>
+            </nav>
         </aside>
-
         <main class="content">
-            <section id="introduction" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-home"></i> Overview</h2>
-                <p class="doc-section-description">
-                    AquaLink is a lightweight and efficient Lavalink wrapper designed for performance and stability. It allows developers to integrate Lavalink into their Discord bots with minimal dependencies. AquaLink handles voice connections, track playback, and queue management with ease.
-                </p>
-            </section>
-
-            <section id="features" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-rocket"></i> Features</h2>
-                <ul class="feature-list">
-                    <li><i class="fas fa-check"></i> Minimal Dependencies</li>
-                    <li><i class="fas fa-check"></i> Built-in Queue Management</li>
-                    <li><i class="fas fa-check"></i> Auto-Reconnect for Lavalink Nodes</li>
-                    <li><i class="fas fa-check"></i> High-Quality Audio Streaming</li>
-                    <li><i class="fas fa-check"></i> Supports Multiple Lavalink Nodes</li>
-                    <li><i class="fas fa-check"></i> Easy-to-Use API</li>
-                </ul>
-            </section>
-
-            <section id="installation" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-download"></i> Installation</h2>
-                <p class="doc-section-description">
-                    To install Aqualink, ensure you have Node.js 16.9.0 or higher and npm installed, then run:
-                </p>
-                <div class="code-block" data-language="bash">
-                    <div class="code-header">
-                        <span class="code-title">Terminal</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>npm install aqualink</code></pre>
+            <section class="hero-section">
+                <div class="badges">
+                    <img src="https://img.shields.io/npm/v/aqualink.svg?color=2962FF&style=flat" alt="npm versiom">
+                    <img src="https://img.shields.io/badge/license-MIT-2962FF?style=flat" alt="MIT License" class="license-badge">
                 </div>
-                <p class="doc-section-description">
-                    You'll also need a Lavalink server running. For instructions on setting up Lavalink, visit the <a href="https://github.com/lavalink-devs/Lavalink" target="_blank" rel="noopener noreferrer" style="z-index: 1; position: relative;">Lavalink GitHub repository</a>.
-                </p>
-            </section>
 
-            <section id="configuration" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-cog"></i> Configuration</h2>
-                <p class="doc-section-description">
-                    Configure your Aqualink instance with the following options:
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>const { Client, GatewayIntentBits } = require('discord.js');
-const { Aqua } = require('aqualink');
-
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildVoiceStates
-  ]
-});
-
-// Create Aqua instance with configuration
-const aqua = new Aqua(client, [
-  {
-    name: "main-node",     // Optional but recommended for identification
-    host: "localhost",     // Lavalink server address
-    port: 2333,            // Lavalink server port
-    password: "youshallnotpass", // Lavalink server password
-    secure: false          // Whether to use WSS (secure websocket)
-  }
-], {
-  // Optional configuration
-  defaultSearchPlatform: 'ytsearch', // Default platform for searches
-  shouldDeleteMessage: false,     // Whether to delete messages after processing
-  leaveOnEnd: true,               // Leave voice channel when playback ends
-  autoResume: false,              // Automatically resume disconnected sessions
-  infiniteReconnects: false       // Whether to infinitely attempt reconnections
-});</code></pre>
-                </div>
-            </section>
-
-            <section id="basic-usage" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-play"></i> Basic Usage</h2>
-                <p class="doc-section-description">
-                    Here's how to initialize Aqualink and start playing music:
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>// Initialize Aqualink when your Discord client is ready
-client.once('ready', () => {
-  // Pass your client ID to initialize
-  aqua.init(client.user.id);
-  console.log('Aqualink initialized!');
-});
-
-// Handle voice state updates from Discord
-client.on('raw', (packet) => {
-  if (packet.t === 'VOICE_SERVER_UPDATE' || packet.t === 'VOICE_STATE_UPDATE') {
-    aqua.updateVoiceState(packet);
-  }
-});
-
-// Example slash command to play music
-async function playCommand(interaction) {
-  const query = interaction.options.getString('song');
-  const voiceChannel = interaction.member.voice.channel;
-  
-  if (!voiceChannel) {
-    return interaction.reply('You need to be in a voice channel!');
-  }
-  
-  // Get or create a player for this guild
-  let player;
-  try {
-    player = aqua.get(interaction.guildId);
-  } catch {
-    player = aqua.createConnection({
-      guildId: interaction.guildId,
-      voiceChannel: voiceChannel.id,
-      textChannel: interaction.channelId
-    });
-  }
-  
-  // Search for the track
-  const result = await aqua.resolve({
-    query,
-    requester: interaction.user
-  });
-  
-  if (result.loadType === 'error' || !result.tracks.length) {
-    return interaction.reply('No results found!');
-  }
-  
-  // Add track to queue and play if not already playing
-  player.queue.add(result.tracks[0]);
-  
-  if (!player.playing) {
-    player.play();
-  }
-  
-  return interaction.reply(`Added to queue: ${result.tracks[0].title}`);
-}</code></pre>
-                </div>
-            </section>
-
-            <section id="queue-system" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-list"></i> Queue System</h2>
-                <p class="doc-section-description">
-                    Aqualink comes with a powerful queue management system:
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>// Get the player for a guild
-const player = aqua.get(guildId);
-
-// Access the queue
-const queue = player.queue;
-
-// Add a track to the queue
-queue.add(track);
-
-// Add multiple tracks
-queue.add(tracks);
-
-// Get current track
-const currentTrack = queue.current;
-
-// See upcoming tracks
-const upcomingTracks = queue.tracks;
-
-// Skip to the next track
-player.skip();
-
-// Shuffle the queue
-player.shuffle();
-
-// Set loop mode (none, track, queue)
-player.setLoop('queue');
-
-// Clear the queue but keep the current track
-queue.clear();
-
-// Remove a specific track by index
-queue.remove(2); // Removes the third track in the queue</code></pre>
-                </div>
-            </section>
-
-            <section id="events" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-bell"></i> Events</h2>
-                <p class="doc-section-description">
-                    Listen for events to create responsive music bots:
+                <p class="package-description">
+                    A powerful and efficient Lavalink client for Discord.js, designed for high performance and ease of use.
                 </p>
 
-                <h3 class="api-subtitle">Track-Related Events</h3>
-
-                <h4 class="method-name">trackStart</h4>
-                <p class="method-description">Emitted when a track begins playback.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-bolt"></i>
+                        <h3>High Performance</h3>
+                        <p>Optimized for speed and efficiency</p>
                     </div>
-                    <pre class="code-content"><code>aqua.on('trackStart', (player, track, payload) => {
-  console.log(`Now playing: ${track.title}`);
-});</code></pre>
-                </div>
-
-                <h4 class="method-name">trackChange</h4>
-                <p class="method-description">Emitted when the player switches to a different track.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
+                    <div class="feature-card">
+                        <i class="fas fa-plug"></i>
+                        <h3>Easy Integration</h3>
+                        <p>Seamless Discord.js integration</p>
                     </div>
-                    <pre class="code-content"><code>aqua.on('trackChange', (player, newTrack, previousTrack) => {
-  console.log(`Changed from ${previousTrack.title} to ${newTrack.title}`);
-});</code></pre>
-                </div>
-
-                <h4 class="method-name">trackEnd</h4>
-                <p class="method-description">Emitted when a track finishes playing.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('trackEnd', (player, track, payload) => {
-  console.log(`Finished playing: ${track.title}`);
-});</code></pre>
-                </div>
-
-                <h4 class="method-name">trackError</h4>
-                <p class="method-description">Emitted when a track encounters a playback error.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('trackError', (player, track, error) => {
-  console.error(`Error playing ${track.title}: ${error}`);
-});</code></pre>
-                </div>
-
-                <h4 class="method-name">trackStuck</h4>
-                <p class="method-description">Emitted when a track becomes unresponsive during playback.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('trackStuck', (player, track) => {
-  console.warn(`Track ${track.title} is stuck, attempting recovery...`);
-});</code></pre>
-                </div>
-
-                <h3 class="api-subtitle">Connection Events</h3>
-
-                <h4 class="method-name">socketClosed</h4>
-                <p class="method-description">Emitted when the WebSocket connection to Discord voice closes.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('socketClosed', (player, reason) => {
-  console.log(`Voice connection closed: ${reason}`);
-});</code></pre>
-                </div>
-
-                <h3 class="api-subtitle">Player Events</h3>
-
-                <h4 class="method-name">playerLeave</h4>
-                <p class="method-description">Emitted when a player leaves a voice channel.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('playerLeave', (player, sessionId) => {
-  console.log(`Player left voice channel in guild ${player.guildId}`);
-});</code></pre>
-                </div>
-
-                <h4 class="method-name">playerDestroy</h4>
-                <p class="method-description">Emitted when a player instance is destroyed.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('playerDestroy', (player, reason) => {
-  console.log(`Player in guild ${player.guildId} was destroyed: ${reason}`);
-});</code></pre>
-                </div>
-
-                <h4 class="method-name">playerMove</h4>
-                <p class="method-description">Emitted when a user moves the bot between voice channels.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('playerMove', (player, previousPosition, newPosition) => {
-  console.log(`Moved from channel ${previousPosition} to ${newPosition}`);
-});</code></pre>
-                </div>
-
-                <h3 class="api-subtitle">Node Events</h3>
-
-                <h4 class="method-name">nodeError</h4>
-                <p class="method-description">Emitted when a Lavalink node encounters an error.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('nodeError', (node, error) => {
-  console.error(`Node ${node.options.name || node.options.host} error: ${error}`);
-});</code></pre>
-                </div>
-
-                <h4 class="method-name">nodeConnect</h4>
-                <p class="method-description">Emitted when a Lavalink node successfully connects.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('nodeConnect', (node) => {
-  console.log(`Node ${node.options.name || node.options.host} connected`);
-});</code></pre>
-                </div>
-
-                <h4 class="method-name">nodeDisconnect</h4>
-                <p class="method-description">Emitted when a Lavalink node disconnects.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('nodeDisconnect', (node, reason) => {
-  console.log(`Node ${node.options.name || node.options.host} disconnected: ${reason}`);
-});</code></pre>
-                </div>
-
-                <h4 class="method-name">nodeReconnect</h4>
-                <p class="method-description">Emitted when a Lavalink node attempts to reconnect.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('nodeReconnect', (node) => {
-  console.log(`Node ${node.options.name || node.options.host} is reconnecting...`);
-});</code></pre>
-                </div>
-
-                <h4 class="method-name">nodeDestroy</h4>
-                <p class="method-description">Emitted when a Lavalink node is destroyed.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('nodeDestroy', (node, reason) => {
-  console.log(`Node ${node.options.name || node.options.host} was destroyed: ${reason}`);
-});</code></pre>
-                </div>
-
-                <h3 class="api-subtitle">Debug Events</h3>
-
-                <h4 class="method-name">debug</h4>
-                <p class="method-description">Emitted for debugging purposes with detailed information.</p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('debug', (message) => {
-  console.debug(`[Aqua Debug] ${message}`);
-});</code></pre>
-                </div>
-
-                <h3 class="api-subtitle">Usage Example</h3>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>const player = aqua.createConnection({
-  guildId: interaction.guildId,
-  voiceChannel: interaction.member.voice.channel.id
-});
-
-// Track events
-aqua.on('trackStart', (player, track) => {
-  interaction.channel.send(`🎵 Now playing: **${track.title}**`);
-});
-
-aqua.on('trackEnd', (player, track) => {
-  if (player.queue.size === 0) {
-    interaction.channel.send('Queue ended, leaving voice channel');
-  }
-});
-
-aqua.on('trackError', (player, track, error) => {
-  interaction.channel.send(`❌ Error playing **${track.title}**: ${error}`);
-  player.skip(); // Skip the problematic track
-});
-
-// Node events
-aqua.on('nodeConnect', (node) => {
-  console.log(`Connected to Lavalink node: ${node.options.name || node.options.host}`);
-});
-
-aqua.on('nodeError', (node, error) => {
-  console.error(`Lavalink node error: ${error}`);
-});</code></pre>
-                </div>
-            </section>
-
-            <section id="player-api" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-code"></i> Player API</h2>
-                <p class="doc-section-description">
-                    The Player class provides rich functionality for audio playback control:
-                </p>
-                
-                <h3 class="api-subtitle">Playback Control Methods</h3>
-                <div class="method-container">
-                    <div class="method-block">
-                        <h4 class="method-name">play()</h4>
-                        <p class="method-description">Plays the next track in the queue.</p>
-                    </div>
-                    <div class="method-block">
-                        <h4 class="method-name">pause(paused)</h4>
-                        <p class="method-description">Toggles the pause state of the player.</p>
-                        <div class="method-params">
-                            <p><strong>Parameters:</strong></p>
-                            <ul>
-                                <li><code>paused</code> (Boolean): Whether to pause or unpause</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="method-block">
-                        <h4 class="method-name">stop()</h4>
-                        <p class="method-description">Stops the current track and resets position.</p>
-                    </div>
-                    <div class="method-block">
-                        <h4 class="method-name">seek(position)</h4>
-                        <p class="method-description">Seeks to a position in the current track.</p>
-                        <div class="method-params">
-                            <p><strong>Parameters:</strong></p>
-                            <ul>
-                                <li><code>position</code> (Number): Position in milliseconds to seek to</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="method-block">
-                        <h4 class="method-name">setVolume(volume)</h4>
-                        <p class="method-description">Sets the playback volume.</p>
-                        <div class="method-params">
-                            <p><strong>Parameters:</strong></p>
-                            <ul>
-                                <li><code>volume</code> (Number): Volume level (0-200)</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="method-block">
-                        <h4 class="method-name">skip()</h4>
-                        <p class="method-description">Skips the current track and plays the next one.</p>
-                    </div>
-                </div>
-                
-                <h3 class="api-subtitle">Queue Management Methods</h3>
-                <div class="method-container">
-                    <div class="method-block">
-                        <h4 class="method-name">shuffle()</h4>
-                        <p class="method-description">Shuffles the tracks in the queue.</p>
-                    </div>
-                    <div class="method-block">
-                        <h4 class="method-name">setLoop(mode)</h4>
-                        <p class="method-description">Sets the loop mode.</p>
-                        <div class="method-params">
-                            <p><strong>Parameters:</strong></p>
-                            <ul>
-                                <li><code>mode</code> (String): Loop mode ("none", "track", or "queue")</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="method-block">
-                        <h4 class="method-name">setAutoplay(enabled)</h4>
-                        <p class="method-description">Enables or disables autoplay functionality.</p>
-                        <div class="method-params">
-                            <p><strong>Parameters:</strong></p>
-                            <ul>
-                                <li><code>enabled</code> (Boolean): Whether to enable or disable autoplay</li>
-                            </ul>
-                        </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Reliable</h3>
+                        <p>Built for stability and resilience</p>
                     </div>
                 </div>
             </section>
+            <section id="installation" class="content-section">
+                <h2>Installation</h2>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>npm</span>
+                        <button class="copy-btn" data-clipboard-target="#install-npm">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="install-npm">npm install aqualink</code></pre>
+                </div>
+            </section>
 
-            <section id="node-api" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-server"></i> Aqua Node Documentation</h2>
-                
-                <h3 class="api-subtitle">Overview</h3>
-                <p class="doc-section-description">
-                    In Aqua, there are two primary ways to access node information:
-                </p>
-                <ol>
-                    <li><strong>aqua.nodes</strong>: An array containing node configurations</li>
-                    <li><strong>aqua.nodeMap</strong>: A Map object containing instantiated Node class instances</li>
-                </ol>
-                
-                <h3 class="api-subtitle">Node Class</h3>
-                <p class="doc-section-description">
-                    The Node class establishes and maintains connections to Lavalink servers.
-                </p>
-                
-                <h3 class="api-subtitle">Constructor Options</h3>
-                <div class="code-block" data-language="javascript">
+            <section id="basic-setup" class="content-section">
+                <h2>Basic Setup</h2>
+                <p>Quick example of setting up AquaLink with Discord.js:</p>
+                <div class="code-block">
                     <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#basic-setup-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
                     </div>
-                    <pre class="code-content"><code>const node = new Node(aqua, {
-                name: "primary-node",       // Optional, defaults to host
-                host: "localhost",          // Required
-                port: 2333,                 // Optional, defaults to 2333
-                password: "youshallnotpass", // Optional, defaults to "youshallnotpass"
-                secure: false,              // Optional, enables WSS/HTTPS
-                regions: ["us", "eu"],      // Optional, for region-specific routing
-                sessionId: null             // Optional, for resuming connections
-            }, {
-                resumeTimeout: 60,          // Optional, seconds to keep session alive
-                autoResume: false,          // Optional, auto-resume disconnected sessions
-                reconnectTimeout: 2000,     // Optional, base reconnect delay (ms)
-                reconnectTries: 3,          // Optional, max reconnection attempts
-                infiniteReconnects: false   // Optional, keep trying to reconnect indefinitely
-            });</code></pre>
-                </div>
-                
-                <h3 class="api-subtitle">Properties</h3>
-                <h4 class="api-subtitle">Connection Properties</h4>
-                <ul>
-                    <li><strong>name</strong>: Identifier for the node (defaults to host)</li>
-                    <li><strong>host</strong>: Hostname or IP address of the Lavalink server</li>
-                    <li><strong>port</strong>: Port number of the Lavalink server</li>
-                    <li><strong>password</strong>: Password for Lavalink authentication</li>
-                    <li><strong>secure</strong>: Whether to use secure WebSocket/HTTP connections</li>
-                    <li><strong>sessionId</strong>: Session ID for resuming disconnected sessions</li>
-                    <li><strong>wsUrl</strong>: WebSocket URL for Lavalink connections</li>
-                    <li><strong>connected</strong>: Whether the node is currently connected</li>
-                    <li><strong>regions</strong>: Array of region identifiers for region-specific routing</li>
-                </ul>
-                
-                <h4 class="api-subtitle">Configuration Properties</h4>
-                <ul>
-                    <li><strong>resumeTimeout</strong>: Time in seconds to keep session alive for resuming</li>
-                    <li><strong>autoResume</strong>: Whether to automatically resume disconnected sessions</li>
-                    <li><strong>reconnectTimeout</strong>: Base delay in milliseconds between reconnection attempts</li>
-                    <li><strong>reconnectTries</strong>: Maximum number of reconnection attempts</li>
-                    <li><strong>infiniteReconnects</strong>: Whether to continue reconnection attempts indefinitely</li>
-                </ul>
-                
-                <h4 class="api-subtitle">Statistics (stats)</h4>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>{
-                players: 0,               // Total players on this node
-                playingPlayers: 0,        // Players currently playing audio
-                uptime: 0,                // Node uptime in milliseconds
-                memory: {
-                    free: 0,              // Free memory in bytes
-                    used: 0,              // Used memory in bytes
-                    allocated: 0,         // Allocated memory in bytes
-                    reservable: 0,        // Maximum memory in bytes
-                    freePercentage: 0,    // Free memory percentage
-                    usedPercentage: 0     // Used memory percentage
-                },
-                cpu: {
-                    cores: 0,             // Number of CPU cores
-                    systemLoad: 0,        // System CPU load
-                    lavalinkLoad: 0,      // Lavalink CPU load
-                    lavalinkLoadPercentage: 0 // Lavalink load percentage
-                },
-                frameStats: {
-                    sent: 0,              // Audio frames sent
-                    nulled: 0,            // Null audio frames
-                    deficit: 0            // Frame deficit
-                },
-                ping: 0                   // Ping to the Lavalink server in ms
-            }</code></pre>
-                </div>
-                
-                <h4 class="api-subtitle">Server Info (info)</h4>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>{
-                buildTime: 0,             // Build timestamp
-                filters: [],              // Available audio filters
-                git: {                    // Git information
-                    branch: "",
-                    commit: "",
-                    commitTime: 0
-                },
-                jvm: "",                  // JVM version
-                lavaplayer: "",           // Lavaplayer version
-                plugins: [],              // Installed plugins
-                sourceManagers: [],       // Available source managers
-                version: ""               // Lavalink version
-            }</code></pre>
-                </div>
-                
-                <h3 class="api-subtitle">Methods</h3>
-                <h4 class="api-subtitle">connect()</h4>
-                <p class="doc-section-description">
-                    Establishes a WebSocket connection to the Lavalink server.
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>await node.connect();</code></pre>
-                </div>
-                
-                <h4 class="api-subtitle">destroy(clean = false)</h4>
-                <p class="doc-section-description">
-                    Disconnects from the Lavalink server and cleans up resources.
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>// Normal destruction (destroys players on this node)
-            node.destroy();
-
-            // Clean destruction (doesn't affect players)
-            node.destroy(true);</code></pre>
-                </div>
-                
-                <h4 class="api-subtitle">getStats()</h4>
-                <p class="doc-section-description">
-                    Fetches the latest statistics from the Lavalink server.
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>const stats = await node.getStats();
-            console.log(`Players: ${stats.players}, Playing: ${stats.playingPlayers}`);</code></pre>
-                </div>
-                
-                <h4 class="api-subtitle">resumePlayers()</h4>
-                <p class="doc-section-description">
-                    Attempts to resume disconnected players on this node.
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>await node.resumePlayers();</code></pre>
-                </div>
-                
-                <h3 class="api-subtitle">Accessing Nodes</h3>
-                <h4 class="api-subtitle">Using `aqua.nodes` (Raw Configuration)</h4>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>// Log all node hosts
-            aqua.nodes.forEach(node => {
-                console.log(node.host);
-            });</code></pre>
-                </div>
-                
-                <h4 class="api-subtitle">Using `aqua.nodeMap` (Node Class Instances)</h4>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>// Get a specific node by name
-            const myNode = aqua.nodeMap.get("us-node");
-
-            // Convert to array for array methods
-            const nodes = Array.from(aqua.nodeMap.values());
-
-            // Calculate total players across all nodes
-            const totalPlayers = nodes.reduce((sum, node) => sum + node.stats.players, 0);
-
-            // Find nodes in a specific region
-            const euNodes = nodes.filter(node => node.regions.includes("eu"));
-
-            // Find least used node
-            const leastUsedNode = nodes.sort((a, b) => a.stats.players - b.stats.players)[0];</code></pre>
-                </div>
-                
-                <h3 class="api-subtitle">Events</h3>
-                <h4 class="api-subtitle">nodeConnect</h4>
-                <p class="doc-section-description">
-                    Emitted when a node successfully connects.
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('nodeConnect', (node) => {
-                console.log(`Node ${node.name} connected`);
-            });</code></pre>
-                </div>
-                
-                <h4 class="api-subtitle">nodeDisconnect</h4>
-                <p class="doc-section-description">
-                    Emitted when a node disconnects.
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('nodeDisconnect', (node, { code, reason }) => {
-                console.log(`Node ${node.name} disconnected: ${reason}`);
-            });</code></pre>
-                </div>
-                
-                <h4 class="api-subtitle">nodeError</h4>
-                <p class="doc-section-description">
-                    Emitted when a node encounters an error.
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('nodeError', (node, error) => {
-                console.error(`Node ${node.name} error:`, error);
-            });</code></pre>
-                </div>
-                
-                <h4 class="api-subtitle">nodeReconnect</h4>
-                <p class="doc-section-description">
-                    Emitted when a node attempts to reconnect.
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('nodeReconnect', (node, info) => {
-                console.log(`Node ${node.name} reconnecting, attempt: ${info.attempt}`);
-            });</code></pre>
-                </div>
-                
-                <h4 class="api-subtitle">nodeDestroy</h4>
-                <p class="doc-section-description">
-                    Emitted when a node is destroyed.
-                </p>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>aqua.on('nodeDestroy', (node) => {
-                console.log(`Node ${node.name} destroyed`);
-            });</code></pre>
-                </div>
-                
-                <h3 class="api-subtitle">Examples</h3>
-                <h4 class="api-subtitle">Setting Up Multiple Nodes</h4>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>const { Aqua } = require('aqualink');
-
-            const aqua = new Aqua(client, [
-                {
-                    name: "us-node",
-                    host: "us-lavalink.example.com",
+                    <pre><code id="basic-setup-code">const { Client } = require('discord.js');
+            const { AquaLink } = require('aqualink');
+            
+            const client = new Client({
+                intents: ['Guilds', 'GuildVoiceStates']
+            });
+            
+            client.aqua = new Aqua(client, nodes, {
+                nodes: [{
+                    host: 'localhost',
                     port: 2333,
-                    password: "password123",
-                    regions: ["us"]
-                },
-                {
-                    name: "eu-node",
-                    host: "eu-lavalink.example.com",
-                    port: 2333,
-                    password: "password123",
-                    regions: ["eu"]
+                    password: 'youshallnotpass'
+                }],
+                send: (guildId, payload) => {
+                    const guild = client.guilds.cache.get(guildId);
+                    if (guild) guild.shard.send(payload);
                 }
-            ]);
-
-            client.once('ready', () => {
-                aqua.init(client.user.id);
             });</code></pre>
                 </div>
-                
-                <h4 class="api-subtitle">Node Load Balancing</h4>
-                <div class="code-block" data-language="javascript">
+            
+                <h3>Initialization</h3>
+                <p>Create an initialization file to set up AquaLink events:</p>
+                <div class="code-block">
                     <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
+                        <span>JavaScript: events/aqua/init.js</span>
+                        <button class="copy-btn" data-clipboard-target="#init-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
                     </div>
-                    <pre class="code-content"><code>function getBestNode(guild) {
-                // Get available nodes
-                const nodes = Array.from(aqua.nodeMap.values()).filter(node => node.connected);
-                if (!nodes.length) return null;
-                
-                // If guild has a region, try to find a region-specific node
-                if (guild.region) {
-                    const regionNodes = nodes.filter(node => 
-                        node.regions.includes(guild.region.toLowerCase())
-                    );
-                    if (regionNodes.length) {
-                        // Return the least used node in the region
-                        return regionNodes.sort((a, b) => 
-                            (a.stats.players / a.stats.cpu.cores) - 
-                            (b.stats.players / b.stats.cpu.cores)
-                        )[0];
+                    <pre><code id="init-code">
+            const { client_id } = require("../../../config.js"); // change to where your client_id is located.
+            const { logger } = require("../../../utils/logger.js"); // change to what you have for logging.
+            const client = require("../../../index.js"); // change the location of where your index/bot.js is located.
+            
+            module.exports = async () => {
+                client.aqua.init(client_id)
+                logger(`Successfully Initiated Aqualink Events`, "debug");
+            };</code></pre>
+                </div>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Make sure to have your client ID in the config file and a logger utility set up for proper initialization.</p>
+                </div>
+            </section>
+
+            <section id="quick-start" class="content-section">
+                <h2>Quick Start</h2>
+                <p>Here's a simple example of playing music:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#quick-start-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="quick-start-code">
+            client.on('interactionCreate', async interaction => {
+                if (!interaction.isCommand()) return;
+            
+                if (interaction.commandName === 'play') {
+                    const query = interaction.options.getString('song');
+                    const voiceChannel = interaction.member.voice.channel;
+            
+                    if (!voiceChannel) {
+                        return interaction.reply('You need to be in a voice channel!');
+                    }
+            
+                    try {
+                        const player = aqua.createPlayer({
+                            guildId: interaction.guildId,
+                            voiceChannel: voiceChannel.id,
+                            textChannel: interaction.channelId
+                        });
+            
+                        const result = await aqua.search(query);
+                        if (!result.tracks.length) {
+                            return interaction.reply('No results found!');
+                        }
+            
+                        player.queue.add(result.tracks[0]);
+                        if (!player.playing) await player.play();
+            
+                        await interaction.reply(`Added ${result.tracks[0].title} to the queue!`);
+                    } catch (error) {
+                        console.error(error);
+                        await interaction.reply('An error occurred!');
                     }
                 }
-                
-                // Otherwise return the least used node overall
-                return nodes.sort((a, b) => 
-                    (a.stats.players / a.stats.cpu.cores) - 
-                    (b.stats.players / b.stats.cpu.cores)
-                )[0];
-            }
-
-            // Usage
-            const bestNode = getBestNode(interaction.guild);
-            const player = aqua.createPlayer(bestNode, {
-                guildId: interaction.guildId,
-                voiceChannel: interaction.member.voice.channel.id
             });</code></pre>
                 </div>
-                
-                <h4 class="api-subtitle">Monitoring Node Health</h4>
-                <div class="code-block" data-language="javascript">
-                    <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <pre class="code-content"><code>// Set up interval to check node health
-            setInterval(() => {
-                const nodes = Array.from(aqua.nodeMap.values());
-                
-                // Log node statistics
-                console.log("=== Node Status ===");
-                nodes.forEach(node => {
-                    const { stats } = node;
-                    console.log(`${node.name}: ${stats.players} players, CPU: ${stats.cpu.lavalinkLoadPercentage.toFixed(1)}%, Memory: ${(stats.memory.used / 1024 / 1024).toFixed(0)}MB`);
-                });
-                
-                // Alert on high load
-                const overloadedNodes = nodes.filter(node => 
-                    node.stats.cpu.lavalinkLoadPercentage > 80
-                );
-                
-                if (overloadedNodes.length) {
-                    console.warn(`Warning: ${overloadedNodes.length} nodes are experiencing high load!`);
-                }
-            }, 60000);</code></pre>
-                </div>
-            </section>
-
-            <section id="rest-api" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-network-wired"></i> REST API</h2>
-                <h3 class="api-subtitle">Available Endpoints</h3>
-                <ul>
-                    <li><strong>getRoutePlannerAddress()</strong>: Retrieves the address of the route planner.</li>
-                    <li><strong>getRoutePlannerStatus()</strong>: Gets the current status of the route planner.</li>
-                    <li><strong>getInfo()</strong>: Fetches general information about the system or service.</li>
-                    <li><strong>getStats()</strong>: Retrieves statistical data regarding usage or performance.</li>
-                    <li><strong>decodeTracks()</strong>: Decodes multiple tracks based on provided data.</li>
-                    <li><strong>decodeTrack()</strong>: Decodes a single track based on provided data.</li>
-                    <li><strong>getTracks()</strong>: Fetches a list of available tracks.</li>
-                    <li><strong>destroyPlayer()</strong>: Stops and destroys the specified player instance.</li>
-                    <li><strong>getPlayers()</strong>: Retrieves a list of active players in the system.</li>
-                    <li><strong>updatePlayer()</strong>: Updates the settings or status of a specified player.</li>
-                    <li><strong>makeRequest()</strong>: Sends a generic request to the server.</li>
-                    <li><strong>setSessionId()</strong>: Sets the session ID for user interaction with the system.</li>
-                </ul>
-            </section>
-
-            <section id="track-api" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-music"></i> Track API</h2>
-                <h3 class="api-subtitle">Track Properties</h3>
-                <ul>
-                    <li><strong>identifier</strong>: string; // Unique identifier for the track</li>
-                    <li><strong>isSeekable</strong>: boolean; // Indicates if the track can be seeked</li>
-                    <li><strong>author</strong>: string; // Author or artist of the track</li>
-                    <li><strong>length</strong>: number; // Length of the track in milliseconds</li>
-                    <li><strong>isStream</strong>: boolean; // Indicates if the track is a live stream</li>
-                    <li><strong>position</strong>: number; // Current playback position in the track</li>
-                    <li><strong>title</strong>: string; // Title of the track</li>
-                    <li><strong>uri</strong>: string; // URI of the track</li>
-                    <li><strong>sourceName</strong>: string; // Name of the source (e.g., platform)</li>
-                    <li><strong>artworkUrl</strong>: string; // URL of the track's thumbnail image</li>
-                    <li><strong>track</strong>: string; // A specific track's identifier</li>
-                    <li><strong>tracks</strong>: Array&lt;Track&gt;; // Array of related tracks</li>
-                    <li><strong>playlist</strong>: 
-                        <ul>
-                            <li><strong>name</strong>: string; // Name of the playlist</li>
-                            <li><strong>selectedTrack</strong>: number; // Index of the currently selected track in the playlist</li>
-                        </ul>
-                    </li>
-                </ul>
-                <p>Usage example: <code>track.info.title</code>, etc.</p>
-            </section>
-
             
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Make sure to have your client ID in the config file and a logger utility set up for proper initialization. This example assumes you have already set up slash commands in your Discord application.</p>
+                </div>
+            </section>
 
-            <section id="aqua-api" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-water"></i> Aqua API</h2>
-                <p class="doc-section-description">
-                    The main Aqua class provides methods for managing nodes and players:
-                </p>
+            <section id="aqualink-class" class="content-section">
+                <h2>AquaLink Class</h2>
+                <p>The main class for interacting with Lavalink.</p>
                 
-                <h3 class="api-subtitle">Initialization & Setup</h3>
-                <div class="method-container">
-                    <div class="method-block">
-                        <h4 class="method-name">init(clientId)</h4>
-                        <p class="method-description">Initializes Aqua and connects to configured nodes.</p>
-                        <div class="method-params">
-                            <p><strong>Parameters:</strong></p>
-                            <ul>
-                                <li><code>clientId</code> (String): Discord client ID</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <h3 class="api-subtitle">Node Management</h3>
-                <div class="method-container">
-                    <div class="method-block">
-                        <h4 class="method-name">createNode(options)</h4>
-                        <p class="method-description">Creates and connects to a new node.</p>
-                    </div>
-                    <div class="method-block">
-                        <h4 class="method-name">destroyNode(identifier)</h4>
-                        <p class="method-description">Disconnects and removes a node.</p>
-                    </div>
-                </div>
-                
-                <h3 class="api-subtitle">Player Management</h3>
-                <div class="method-container">
-                    <div class="method-block">
-                        <h4 class="method-name">createConnection(options)</h4>
-                        <p class="method-description">Creates a player and connects to a voice channel.</p>
-                    </div>
-                    <div class="method-block">
-                        <h4 class="method-name">destroyPlayer(guildId)</h4>
-                        <p class="method-description">Destroys a player and cleans up resources.</p>
-                    </div>
-                    <div class="method-block">
-                        <h4 class="method-name">get(guildId)</h4>
-                        <p class="method-description">Gets an existing player by guild ID.</p>
-                    </div>
-                </div>
-                
-                <h3 class="api-subtitle">Track Resolution</h3>
+                <h3>Constructor</h3>
                 <div class="method-block">
-                    <h4 class="method-name">resolve({ query, source, requester, nodes })</h4>
-                    <p class="method-description">Searches for tracks or resolves URLs.</p>
-                    <div class="example-card">
-                        <div class="code-block" data-language="javascript">
-                            <div class="code-header">
-                                <span class="code-title">Example</span>
-                                <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                            </div>
-                            <pre class="code-content"><code>// Search YouTube
-            const results = await aqua.resolve({
-              query: "never gonna give you up",
-              source: "ytsearch",
-              requester: interaction.user
-            });</code></pre>
-                        </div>
-                    </div>
-                    <div class="callout callout-info">
-                        <div class="callout-title">Info</div>
-                        <div class="callout-description">
-                            Use this method to search for tracks or resolve URLs. Returns a <a href="https://github.com/ToddyTheNoobDud/AquaLink/blob/main/typings/resolver.d.ts" target="_blank" rel="noopener noreferrer" style="z-index: 1; position: relative;">TrackInfo</a> object.
-                        </div>
+                    <h4>new AquaLink(client, options)</h4>
+                    <p>Creates a new AquaLink instance.</p>
+                    <div class="code-block">
+                        <pre><code>const aqua = new AquaLink(client, {
+    nodes: [{
+        host: 'localhost',
+        port: 2333,
+        password: 'youshallnotpass',
+        secure: false
+    }],
+    defaultSearchPlatform: 'youtube'
+});</code></pre>
                     </div>
                 </div>
-                <div class="method-block">
-                    <h4 class="method-name">search({ query, source, requester, nodes })</h4>
-                    <p class="method-description">Searches for tracks and returns a list of results.</p>
-                    <div class="example-card">
-                        <div class="code-block" data-language="javascript">
-                            <div class="code-header">
-                                <span class="code-title">Example</span>
-                                <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
-                            </div>
-                            <pre class="code-content"><code>// Search YouTube
-            const results = await aqua.search("never gonna give you up", interaction.user, source: "ytsearch");
-            </code></pre>
+
+                <h3>Methods</h3>
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>.createPlayer(options)</h4>
+                        <p>Creates a new player instance for a guild.</p>
+                        <div class="code-block">
+                            <pre><code>const player = aqua.createPlayer({
+    guildId: '123456789',
+    voiceChannel: '987654321',
+    textChannel: '123789456'
+});</code></pre>
                         </div>
                     </div>
-                    <div class="callout callout-info">
-                        <div class="callout-title">Info</div>
-                        <div class="callout-description">
-                            Use this method to search for tracks. Returns an array of <a href="https://github.com/ToddyTheNoobDud/AquaLink/blob/main/typings/resolver.d.ts" target="_blank" rel="noopener noreferrer" style="z-index: 1; position: relative;">TrackInfo</a> objects.
+
+                    <div class="method-item">
+                        <h4>.search(query, options)</h4>
+                        <p>Searches for tracks using the specified query.</p>
+                        <div class="code-block">
+                            <pre><code>const results = await aqua.search('never gonna give you up');</code></pre>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="filters" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-sliders-h"></i> Audio Filters</h2>
-                <p class="doc-section-description">
-                    Aqualink supports various audio filters for enhanced playback:
-                </p>
-                <div class="code-block" data-language="javascript">
+            <section id="player-class" class="content-section">
+                <h2>Player Class</h2>
+                <p>Handles music playback and track management.</p>
+
+                <h3>Methods</h3>
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>.play()</h4>
+                        <p>Starts playing the current track in the queue.</p>
+                        <div class="code-block">
+                            <pre><code>await player.play();</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-item">
+                        <h4>.pause() / .resume()</h4>
+                        <p>Controls playback state.</p>
+                        <div class="code-block">
+                            <pre><code>player.pause(true);
+player.pause(false);</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-item">
+                        <h4>.stop()</h4>
+                        <p>Stops the current track and clears the queue.</p>
+                        <div class="code-block">
+                            <pre><code>player.stop();</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="playing-track" class="content-section">
+                <h2>Playing a Track</h2>
+                <p>Here's how to play a track using AquaLink, including automatic player creation if needed:</p>
+                <div class="code-block">
                     <div class="code-header">
-                        <span class="code-title">JavaScript</span>
-                        <button class="copy-button"><i class="fas fa-copy"></i> Copy</button>
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#play-track-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
                     </div>
-                    <pre class="code-content"><code>// Get the player
-            const player = aqua.get(guildId);
-
-            // Apply equalizer filter
-            player.setFilter({
-              equalizer: [
-                { band: 0, gain: 0.25 },
-                { band: 1, gain: 0.25 },
-                { band: 2, gain: 0.25 }
-              ]
-            });
-
-            // Apply bass boost
-            player.setFilter({
-              equalizer: [
-                { band: 0, gain: 0.6 },
-                { band: 1, gain: 0.67 },
-                { band: 2, gain: 0.67 },
-                { band: 3, gain: 0.4 }
-              ]
-            });
-
-            // Apply nightcore effect
-            player.setFilter({
-              timescale: { rate: 1.5 }
-            });
-
-            // Apply vaporwave effect
-            player.setFilter({
-              timescale: { pitch: 0.8 }
-            });
-
-            // Reset filters
-            player.clearFilter();</code></pre>
+                    <pre><code id="play-track-code">async function playTrack(guildId, track) {
+                let player = client.aqua.players.get(interaction.guildId);
+                if (!player) {
+                    player = client.aqua.createConnection({
+                        defaultVolume: 65,
+                        guildId: interaction.guildId,
+                        voiceChannel: interaction.member.voice.channelId,
+                        textChannel: interaction.channelId,
+                        deaf: true
+                    });
+                }
+                player.play(track);
+            }</code></pre>
                 </div>
-            </section>
-
-            <section id="faq" class="doc-section">
-                <h2 class="doc-section-title"><i class="fas fa-question-circle"></i> FAQ</h2>
-                
-                <div class="faq-item">
-                    <h3 class="faq-question">Q: What are the supported music sources?</h3>
-                    <div class="faq-answer">
-                        <p>Aqualink supports these music sources:</p>
+            
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <p>This function checks for an existing player and creates one if needed. The player is configured with default settings including volume level and automatic deafening of the bot.</p>
+                </div>
+            
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>Parameters</h4>
                         <ul>
-                            <li>YouTube (<code>ytsearch</code>)</li>
-                            <li>YouTube Music (<code>ytmsearch</code>)</li>
-                            <li>Spotify (<code>spsearch</code>)</li>
-                            <li>SoundCloud (<code>scsearch</code>)</li>
-                            <li>Deezer (<code>dzsearch</code>)</li>
-                            <li>Tidal (<code>tdsearch</code>)</li>
-                            <li>Apple Music (<code>amsearch</code>)</li>
-                            <li>Bandcamp (<code>bcsearch</code>)</li>
-                            <li>JioSaavn (<code>jssearch</code>)</li>
+                            <li><code>guildId</code> - The ID of the guild (server)</li>
+                            <li><code>track</code> - The track object to play</li>
+                        </ul>
+                    </div>
+                    <div class="method-item">
+                        <h4>Player Options</h4>
+                        <ul>
+                            <li><code>defaultVolume</code> - Initial volume level (0-100)</li>
+                            <li><code>guildId</code> - The guild ID for the connection</li>
+                            <li><code>voiceChannel</code> - The voice channel ID to connect to</li>
+                            <li><code>textChannel</code> - The text channel ID for notifications</li>
+                            <li><code>deaf</code> - Whether the bot should be deafened</li>
                         </ul>
                     </div>
                 </div>
-                
-                <div class="faq-item">
-                    <h3 class="faq-question">Q: How do I handle voice disconnections?</h3>
-                    <div class="faq-answer">
-                        <p>You can enable the <code>autoResume</code> option when creating your Aqua instance, or handle reconnections manually by listening to the <code>socketClosed</code> event.</p>
+            </section>
+            <section id="search-track" class="content-section">
+                <h2>Example of Searching for a Track Using Lavalink</h2>
+                <p>Here's how to search for tracks and add them to the queue using AquaLink's resolve method:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#search-track-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="search-track-code">async function searchAndPlay(guildId, query) {
+                const resolve = await client.aqua.resolve({
+                    query,
+                    requester: interaction.member, // optional!
+                    source: "scsearch"
+                });
+                if (!results.tracks.length) return console.log("No results found.");
+            
+                const track = results.tracks[0]; 
+                await player.queue.add(track)
+                if (!player.playing && !player.paused && player.queue.size > 0) {
+                    player.play();
+                }
+            }</code></pre>
+                </div>
+            
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <p>The resolve method supports different search sources like 'ytsearch' (YouTube), 'scsearch' (SoundCloud), and direct URLs. The requester field is optional but useful for tracking who requested each track.</p>
+                </div>
+            
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>Parameters</h4>
+                        <ul>
+                            <li><code>guildId</code> - The ID of the guild (server)</li>
+                            <li><code>query</code> - The search query or URL</li>
+                        </ul>
+                    </div>
+                    <div class="method-item">
+                        <h4>Resolve Options</h4>
+                        <ul>
+                            <li><code>query</code> - The search term or URL</li>
+                            <li><code>requester</code> - The user who requested the track (optional)</li>
+                            <li><code>source</code> - The search source (ytsearch, scsearch, etc.)</li>
+                        </ul>
+                    </div>
+                    <div class="method-item">
+                        <h4>Supported Sources</h4>
+                        <ul>
+                            <li><code>ytsearch</code> - YouTube search</li>
+                            <li><code>scsearch</code> - SoundCloud search</li>
+                            <li><code>dzsearch</code> - Deezer search</li>
+                            <li>Direct URLs from supported platforms</li>
+                        </ul>
                     </div>
                 </div>
-                
-                <div class="faq-item">
-                    <h3 class="faq-question">Q: Can I use multiple Lavalink nodes?</h3>
-                    <div class="faq-answer">
-                        <p>Yes! Aqualink supports multiple nodes with automatic load balancing. Simply provide an array of node configurations when creating your Aqua instance.</p>
+            </section>
+            <section id="playback-control" class="content-section">
+                <h2>Controlling Playback</h2>
+                <p>Here are various methods to control music playback using AquaLink:</p>
+            
+                <h3>Pausing and Resuming</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#pause-resume-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="pause-resume-code">async function pausePlayback(guildId) {
+                const player = client.aqua.players.get(interaction.guildId);
+                if (player) player.pause(true);
+            }
+            
+            async function resumePlayback(guildId) {
+                const player = client.aqua.players.get(interaction.guildId);
+                if (player) player.pause(false);
+            }</code></pre>
+                </div>
+            
+                <h3>Skipping a Track</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#skip-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="skip-code">async function skipTrack(guildId) {
+                const player = client.aqua.players.get(interaction.guildId);
+                if (player) player.stop();
+            }</code></pre>
+                </div>
+            
+                <h3>Stopping and Disconnecting</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#stop-disconnect-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="stop-disconnect-code">async function stopPlayback(guildId) {
+                const player = client.aqua.players.get(interaction.guildId);
+                if (player) player.stop();
+            }
+            
+            async function disconnectPlayer(guildId) {
+                const player = client.aqua.players.get(interaction.guildId);
+                if (player) player.destroy();
+            }</code></pre>
+                </div>
+            
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <p>All these functions first check if a player exists for the guild before attempting to control playback. The destroy() method will completely remove the player instance and disconnect from the voice channel.</p>
+                </div>
+            
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>Available Methods</h4>
+                        <ul>
+                            <li><code>pause(boolean)</code> - Pause or resume playback</li>
+                            <li><code>stop()</code> - Stop current track and move to next in queue</li>
+                            <li><code>destroy()</code> - Disconnect and cleanup player instance</li>
+                        </ul>
+                    </div>
+                    <div class="method-item">
+                        <h4>Parameters</h4>
+                        <ul>
+                            <li><code>guildId</code> - The ID of the guild (server)</li>
+                            <li><code>pause(true/false)</code> - True to pause, false to resume</li>
+                        </ul>
                     </div>
                 </div>
-                
-                <div class="faq-item">
-                    <h3 class="faq-question">Q: How do I enable debugging?</h3>
-                    <div class="faq-answer">
-                        <p>you can use the event emitter: aqua.on('debug', (message) => console.log(message));</p>
+            </section>
+            <section id="queue-management" class="content-section">
+                <h2>Queue Management</h2>
+                <p>Here are methods to manage the track queue in AquaLink:</p>
+            
+                <h3>Adding a Track to the Queue</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#add-queue-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="add-queue-code">async function addToQueue(guildId, track) {
+                const player = client.aqua.players.get(interaction.guildId);
+                if (!player.queue) player.queue = [];
+            
+                player.queue.push(track);
+                if (!player.playing) playTrack(guildId, player.queue.shift());
+            }</code></pre>
+                </div>
+            
+                <h3>Viewing the Current Queue</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#view-queue-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="view-queue-code">async function viewQueue(guildId) {
+                const player = client.aqua.players.get(interaction.guildId);
+                if (!player || !player.queue.length) return console.log("The queue is empty.");
+            
+                console.log("Current Queue:");
+                player.queue.forEach((track, index) => {
+                    console.log(`${index + 1}. ${track.info.title}`);
+                });
+            }</code></pre>
+                </div>
+            
+                <h3>Looping a Track</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#loop-track-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="loop-track-code">async function loopTrack(guildId) {
+                const player = client.aqua.players.get(interaction.guildId);
+                if (!player) return;
+            
+                player.queue.unshift(player.queue[player.queue.length - 1]); 
+            }</code></pre>
+                </div>
+            
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <p>Queue management functions handle the playlist of tracks. The queue is maintained per guild, and tracks are automatically played in sequence. The loop function adds the current track back to the beginning of the queue for continuous playback.</p>
+                </div>
+            
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>Queue Methods</h4>
+                        <ul>
+                            <li><code>push(track)</code> - Add a track to the end of queue</li>
+                            <li><code>shift()</code> - Remove and return the first track</li>
+                            <li><code>unshift(track)</code> - Add a track to the beginning</li>
+                            <li><code>forEach(callback)</code> - Iterate through the queue</li>
+                        </ul>
+                    </div>
+                    <div class="method-item">
+                        <h4>Track Properties</h4>
+                        <ul>
+                            <li><code>track.info.title</code> - The track's title</li>
+                            <li><code>track.info.author</code> - The track's author</li>
+                            <li><code>track.info.length</code> - Duration in milliseconds</li>
+                            <li><code>track.info.uri</code> - Source URL of the track</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section id="cleanup" class="content-section">
+                <h2>Disconnecting and Cleanup</h2>
+                <p>To ensure your bot properly disconnects and cleans up resources, use the following:</p>
+            
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#cleanup-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="cleanup-code">async function cleanup(guildId) {
+                const player = client.aqua.players.get(interaction.guildId);
+                if (player) {
+                    player.stop();
+                    player.destroy();
+                }
+            }</code></pre>
+                </div>
+            
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Always ensure proper cleanup when disconnecting your bot to prevent resource leaks and hanging voice connections. This is especially important when handling bot shutdowns or voice channel leave events.</p>
+                </div>
+            
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>Cleanup Steps</h4>
+                        <ul>
+                            <li><code>player.stop()</code> - Stops any current playback</li>
+                            <li><code>player.destroy()</code> - Destroys the player instance and disconnects from voice</li>
+                        </ul>
+                    </div>
+                    <div class="method-item">
+                        <h4>Usage Examples</h4>
+                        <ul>
+                            <li>Bot shutdown events</li>
+                            <li>Voice channel leave events</li>
+                            <li>Guild leave events</li>
+                            <li>Manual disconnect commands</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section id="voice-state" class="content-section">
+                <h2>Handling Voice State Updates</h2>
+                <p>AquaLink requires voice state updates to maintain connections. Ensure you handle these events properly:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#voice-state-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="voice-state-code">client.on("raw", (d) => {
+                if (![GatewayDispatchEvents.VoiceStateUpdate, GatewayDispatchEvents.VoiceServerUpdate].includes(d.t)) return;
+                client.aqua.updateVoiceState(d);
+            });</code></pre>
+                </div>
+            
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <p>This event handler is crucial for maintaining stable voice connections. It processes voice state and server updates from Discord and passes them to AquaLink for proper connection management.</p>
+                </div>
+            </section>
+            <section id="voice-connect" class="content-section">
+                <h2>Connecting to a Voice Channel</h2>
+                <p>Here's how to connect your bot to a voice channel using AquaLink:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>JavaScript</span>
+                        <button class="copy-btn" data-clipboard-target="#voice-connect-code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="voice-connect-code">async function connectToChannel(guildId, channelId) {
+                const player = client.aqua.players.get(interaction.guildId);
+                player.connect(channelId);
+            }</code></pre>
+                </div>
+            
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <p>The player instance handles the voice connection. Make sure you have a valid player instance before attempting to connect, and ensure the bot has the necessary permissions in the voice channel.</p>
+                </div>
+            
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>Parameters</h4>
+                        <ul>
+                            <li><code>guildId</code> - The ID of the guild (server)</li>
+                            <li><code>channelId</code> - The ID of the voice channel to connect to</li>
+                        </ul>
                     </div>
                 </div>
             </section>
 
-            <div class="pagination">
-                <a href="#" class="pagination-link prev"><i class="fas fa-arrow-left"></i> Previous</a>
-                <a href="#" class="pagination-link next">Next <i class="fas fa-arrow-right"></i></a>
-            </div>
+            <section id="queue-class" class="content-section">
+                <h2>Queue Class</h2>
+                <p>Manages the track queue system.</p>
+
+                <h3>Methods</h3>
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>.add(track)</h4>
+                        <p>Adds a track to the queue.</p>
+                        <div class="code-block">
+                            <pre><code>player.queue.add(track);</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-item">
+                        <h4>.remove(index)</h4>
+                        <p>Removes a track from the queue.</p>
+                        <div class="code-block">
+                            <pre><code>player.queue.remove(0);</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-item">
+                        <h4>.shuffle()</h4>
+                        <p>Shuffles the current queue.</p>
+                        <div class="code-block">
+                            <pre><code>player.queue.shuffle();</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="node-class" class="content-section">
+                <h2>Node Class</h2>
+                <p>Manages Lavalink node connections.</p>
+
+                <h3>Properties</h3>
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>.stats</h4>
+                        <p>Current node statistics.</p>
+                        <div class="code-block">
+                            <pre><code>console.log(node.stats);</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="filters-section" class="content-section">
+                <h2>Audio Filters</h2>
+                <p>Apply audio effects and filters to your music.</p>
+
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>Equalizer</h4>
+                        <div class="code-block">
+                            <pre><code>player.filters.setTremolo(true); ex: ({
+    equalizer: [
+        { band: 0, gain: 0.6 },
+        { band: 1, gain: 0.7 },
+        { band: 2, gain: 0.8 }
+    ]
+});</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="method-item">
+                        <h4>Karaoke</h4>
+                        <div class="code-block">
+                            <pre><code>player.setFilter({
+    karaoke: {
+        level: 1.0,
+        monoLevel: 1.0,
+        filterBand: 220.0,
+        filterWidth: 100.0
+    }
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="events-section" class="content-section">
+                <h2>Events</h2>
+                <p>Handle various player and track events.</p>
+               <div class="method-list">
+                    <div class="method-item">
+                        <h4>trackStart</h4>
+                        <div class="code-block">
+                            <pre><code>client.aqua.on('trackStart', (track) => {
+    console.log(`Now playing: ${track.info.title}`);
+});</code></pre>
+
+                    <div class="method-item">
+                        <h4>queueEnd</h4>
+                        <div class="code-block">
+                            <pre><code>client.aqua.on('queueEnd', () => {
+    console.log('Queue has ended!');
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="events-section" class="content-section">
+                <h2>Events</h2>
+                <p>Handle various node, player, and track events in AquaLink.</p>
+            
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>Node Events</h4>
+                        <p>Events related to Lavalink node connections.</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>Node Events</span>
+                                <button class="copy-btn" data-clipboard-target="#node-events">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <pre><code id="node-events">// Node connection event ex: const client = require("../../../index.js");
+            client.aqua.on('nodeConnect', (node) => {
+                console.log(`Node ${node.host} connected`);
+            });
+            
+            client.aqua.on('nodeDisconnect', (node, reason) => {
+                console.log(`Node disconnected: ${reason}`);
+            });
+            
+            client.aqua.on('nodeError', (node, error) => {
+                console.error(`Node ${node.host} had an error: ${error.message}`);
+            });</code></pre>
+                        </div>
+                    </div>
+            
+                    <div class="method-item">
+                        <h4>Player Events</h4>
+                        <p>Events related to player lifecycle.</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>Player Events</span>
+                                <button class="copy-btn" data-clipboard-target="#player-events">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <pre><code id="player-events">// the client is your index.js ex: const client = require("../../../index.js");
+            client.aqua.on('playerCreate', (player) => {
+                console.log(`Player created in guild: ${player.guildId}`);
+            });
+            
+            client.aqua.on('playerDestroy', (player) => {
+                console.log(`Player destroyed in guild: ${player.guildId}`);
+            });
+            
+            client.aqua.on('queueEnd', (player) => {
+                console.log(`Queue ended in guild: ${player.guildId}`);
+                setTimeout(() => {
+                    if (!player.playing) player.disconnect();
+                }, 300000); 
+            });</code></pre>
+                        </div>
+                    </div>
+            
+                    <div class="method-item">
+                        <h4>Track Events</h4>
+                        <p>Events related to track playback.</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>Track Events</span>
+                                <button class="copy-btn" data-clipboard-target="#track-events">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <pre><code id="track-events">
+            client.aqua.on('trackStart', (track) => {
+                console.log(`Now playing: ${track.title}`);
+            });
+            
+            client.aqua.on('trackEnd', (track, reason) => {
+                console.log(`Track ${track.title} ended: ${reason}`);
+            });
+            
+            client.aqua.on('trackError', (track, error) => {
+                console.error(`Error playing ${track.title}: ${error.message}`);
+            });
+            
+            client.aqua.on('trackStuck', (track, threshold) => {
+                console.warn(`Track ${track.title} got stuck (threshold: ${threshold}ms)`);
+                player.skip(); 
+            });</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="troubleshooting" class="content-section">
+                <h2>Troubleshooting</h2>
+                <p>Common issues and their solutions when working with AquaLink:</p>
+            
+                <div class="troubleshooting-grid">
+                    <div class="trouble-card">
+                        <h3>
+                            <i class="fas fa-volume-mute"></i>
+                            No Sound or Bot Not Joining
+                        </h3>
+                        <ul>
+                            <li>✓ Ensure the Lavalink server is running and accessible.</li>
+                            <li>✓ Verify the Lavalink password and port are correct in your code.</li>
+                            <li>✓ Ensure your bot has the correct permissions (CONNECT and SPEAK).</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code>// Example permissions check
+            if (!voiceChannel.permissionsFor(client.user).has(['CONNECT', 'SPEAK'])) {
+                return console.log('Missing required voice permissions!');
+            }</code></pre>
+                        </div>
+                    </div>
+            
+                    <div class="trouble-card">
+                        <h3>
+                            <i class="fas fa-door-open"></i>
+                            Bot Leaves the Channel Unexpectedly
+                        </h3>
+                        <ul>
+                            <li>✓ The bot may be idle for too long. Consider implementing an inactivity timeout.</li>
+                            <li>✓ Lavalink may be crashing—check your Lavalink logs.</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code>// Example inactivity timeout
+            client.on('queueEnd', (player) => {
+                setTimeout(() => {
+                    if (!player.playing) player.destroy();
+                }, 300000); // 5 minutes
+            });</code></pre>
+                        </div>
+                    </div>
+            
+                    <div class="trouble-card">
+                        <h3>
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Music Skipping or Lagging
+                        </h3>
+                        <ul>
+                            <li>✓ Check your server's CPU and memory usage. Lavalink requires adequate resources.</li>
+                            <li>✓ If hosting Lavalink remotely, ensure the network connection is stable.</li>
+                        </ul>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Recommended minimum specs for Lavalink: 2 CPU cores, 512MB RAM</p>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="alert alert-warning">
+                    <i class="fas fa-tools"></i>
+                    <p>If issues persist, check the Lavalink server logs for detailed error messages. You can also enable debug mode in AquaLink for more detailed logging:</p>
+                    <div class="code-block">
+                        <pre><code>client.aqua = new Aqua(client, nodes, {
+                debug: true,
+                // ... other options
+            });</code></pre>
+                    </div>
+                </div>
+            
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>Common Error Codes</h4>
+                        <ul>
+                            <li><code>ECONNREFUSED</code> - Lavalink server not accessible</li>
+                            <li><code>AuthenticationFailed</code> - Incorrect Lavalink password</li>
+                            <li><code>TrackStuck</code> - Track playback issues</li>
+                            <li><code>LoadFailed</code> - Unable to load track</li>
+                        </ul>
+                    </div>
+                    <div class="method-item">
+                        <h4>Required Permissions</h4>
+                        <ul>
+                            <li><code>CONNECT</code> - Join voice channels</li>
+                            <li><code>SPEAK</code> - Play audio in voice channels</li>
+                            <li><code>VIEW_CHANNEL</code> - See the voice channel</li>
+                            <li><code>USE_VAD</code> - Use voice activity</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="error-handling-section" class="content-section">
+                <h2>Error Handling</h2>
+                <p>Handle and manage errors effectively.</p>
+
+                <div class="method-list">
+                    <div class="method-item">
+                        <h4>Error Events</h4>
+                        <div class="code-block">
+                            <pre><code>client.aqua.on('error', (error) => {
+    console.error('Player error:', error);
+});
+
+client.aqua.on('nodeError', (node, error) => {
+    console.error(`Node ${node.host} error:`, error);
+});</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
-    <footer>
-        <div class="footer-links">
-            <a href="https://github.com/ToddyTheNoobDud/AquaLink" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
-            <a href="https://github.com/ToddyTheNoobDud/AquaLink/issues" target="_blank" rel="noopener noreferrer" class="footer-link">Issues</a>
-            <a href="https://discord.gg/K4CVv84VBC" target="_blank" rel="noopener noreferrer" class="footer-link">Discord</a>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>© 2024 AquaLink. MIT License.</p>
+            </div>
+            <div class="footer-right">
+                <a href="https://github.com/ToddyTheNoobDud/AquaLink/issues">Issues</a>
+                <a href="https://github.com/ToddyTheNoobDud/AquaLink/blob/main/LICENSE">License</a>
+                <a href="https://discord.gg/BNrPCvgrCf">Support</a>
+            </div>
         </div>
-        <div class="social-links">
-            <a href="https://github.com/ToddyTheNoobDud" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-github"></i></a>
-            <a href="https://discord.gg/K4CVv84VBC" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-discord"></i></a>
-        </div>
-        <p>&copy; 2025 Aqualink. All rights reserved.</p>
     </footer>
 
-    <button class="mobile-menu-toggle" id="mobile-menu-toggle">
-        <i class="fas fa-bars"></i>
-    </button>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
     <script src="script.js"></script>
 </body>
+</html>
