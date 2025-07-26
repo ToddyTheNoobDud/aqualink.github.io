@@ -1,1014 +1,1909 @@
 <!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqua Lavalink Client - Documentation</title>
+  <link rel="stylesheet" href="style.css" />
+ </head>
 
-<html lang="en" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaLink | Discord Lavalink Client</title>
-    <meta name="description" content="A powerful Lavalink client for Discord.js, designed for high performance and ease of use">
-    <meta name="keywords" content="lavalink, discord.js, music bot, audio streaming">
-    <meta name="author" content="ToddyTheNoobDud">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-</head>
-<body>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-        <i class="fas fa-sun light-icon"></i>
-        <i class="fas fa-moon dark-icon"></i>
-    </button>
-    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
-        <i class="fas fa-bars"></i>
-    </button>
-    <header class="navbar">
-        <div class="navbar-content">
-            <div class="navbar-left">
-                <a href="#" class="navbar-brand">
-                    <i class="fas fa-water"></i>
-                    <span>AquaLink</span>
-                </a>
-                <div class="badges">
-                    <img src="https://img.shields.io/npm/v/aqualink.svg?color=2962FF&style=flat" alt="npm version">
-                    <img src="https://img.shields.io/badge/downloads-loading-2962FF?style=flat" alt="npm downloads" class="downloads-badge">
-                </div>
-            </div>
-            <div class="social-links">
-                <a href="https://github.com/ToddyTheNoobDud/AquaLink" class="social-button github" target="_blank" rel="noopener">
-                    <i class="fab fa-github"></i>
-                    <span>GitHub</span>
-                </a>
-                <a href="https://discord.gg/BNrPCvgrCf" class="social-button discord" target="_blank" rel="noopener">
-                    <i class="fab fa-discord"></i>
-                    <span>Discord</span>
-                </a>
-            </div>
-        </div>
-    </header>
-    <div class="container">
-        <aside class="sidebar">
-            <div class="search-container">
-                <div class="search-box">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" placeholder="Search documentation..." id="search-input">
-                </div>  
-            </div>
-
-            <div class="nav-section">
-                <h3>
-                    <i class="fas fa-rocket"></i>
-                    Getting Started
-                </h3>
-                <ul>
-                    <li><a href="#installation">Installation</a></li>
-                    <li><a href="#basic-setup">Basic Setup</a></li>
-                    <li><a href="#quick-start">Quick Start</a></li>
-                    <li><a href="#voice-state">Voice State Updates</a></li>
-                    <li><a href="#voice-connect">Voice Connection</a></li>
-                    <li><a href="#playing-track">Playing Tracks</a></li>
-                    <li><a href="#search-track">Searching Tracks</a></li>
-                    <li><a href="#playback-control">Playback Controls</a></li>
-                    <li><a href="#queue-management">Queue Management</a></li>
-                    <li><a href="#cleanup">Cleanup & Disconnection</a></li>
-                    <li><a href="#troubleshooting">Troubleshooting</a></li>
-                </ul>
-            </div>
-                <div class="nav-section">
-                    <h3>
-                        <i class="fas fa-cube"></i>
-                        Classes
-                    </h3>
-                    <ul>
-                        <li><a href="#aqualink-class">AquaLink</a></li>
-                        <li><a href="#player-class">Player</a></li>
-                        <li><a href="#queue-class">Queue</a></li>
-                        <li><a href="#node-class">Node</a></li>
-                    </ul>
-                </div>
-                <div class="nav-section">
-                    <h3>
-                        <i class="fas fa-star"></i>
-                        Features
-                    </h3>
-                    <ul>
-                        <li><a href="#filters-section">Audio Filters</a></li>
-                        <li><a href="#events-section">Events</a></li>
-                        <li><a href="#error-handling-section">Error Handling</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </aside>
-        <main class="content">
-            <section class="hero-section">
-                <div class="badges">
-                    <img src="https://img.shields.io/npm/v/aqualink.svg?color=2962FF&style=flat" alt="npm versiom">
-                    <img src="https://img.shields.io/badge/license-MIT-2962FF?style=flat" alt="MIT License" class="license-badge">
-                </div>
-
-                <p class="package-description">
-                    A powerful and efficient Lavalink client for Discord.js, designed for high performance and ease of use.
-                </p>
-
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-bolt"></i>
-                        <h3>High Performance</h3>
-                        <p>Optimized for speed and efficiency</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-plug"></i>
-                        <h3>Easy Integration</h3>
-                        <p>Seamless Discord.js integration</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>Reliable</h3>
-                        <p>Built for stability and resilience</p>
-                    </div>
-                </div>
-            </section>
-            <section id="installation" class="content-section">
-                <h2>Installation</h2>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>npm</span>
-                        <button class="copy-btn" data-clipboard-target="#install-npm">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="install-npm">npm install aqualink</code></pre>
-                </div>
-            </section>
-
-            <section id="basic-setup" class="content-section">
-                <h2>Basic Setup</h2>
-                <p>Quick example of setting up AquaLink with Discord.js:</p>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#basic-setup-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="basic-setup-code">const { Client } = require('discord.js');
-            const { Aqua } = require('aqualink');
-            
-            const client = new Client({
-                intents: ['Guilds', 'GuildVoiceStates']
-            });
-            
-            client.aqua = new Aqua(client, nodes, {
-                nodes: [{
-                    host: 'localhost',
-                    port: 2333,
-                    password: 'youshallnotpass'
-                }],
-                send: (guildId, payload) => {
-                    const guild = client.guilds.cache.get(guildId);
-                    if (guild) guild.shard.send(payload);
-                }
-            });</code></pre>
-                </div>
-            
-                <h3>Initialization</h3>
-                <p>Create an initialization file to set up AquaLink events:</p>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript: events/aqua/init.js</span>
-                        <button class="copy-btn" data-clipboard-target="#init-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="init-code">
-            const { client_id } = require("../../../config.js"); // change to where your client_id is located.
-            const { logger } = require("../../../utils/logger.js"); // change to what you have for logging.
-            const client = require("../../../index.js"); // change the location of where your index/bot.js is located.
-            
-            module.exports = async () => {
-                client.aqua.init(client_id)
-                logger(`Successfully Initiated Aqualink Events`, "debug");
-            };</code></pre>
-                </div>
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    <p>Make sure to have your client ID in the config file and a logger utility set up for proper initialization.</p>
-                </div>
-            </section>
-
-            <section id="quick-start" class="content-section">
-                <h2>Quick Start</h2>
-                <p>Here's a simple example of playing music:</p>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#quick-start-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="quick-start-code">
-            client.on('interactionCreate', async interaction => {
-                if (!interaction.isCommand()) return;
-            
-                if (interaction.commandName === 'play') {
-                    const query = interaction.options.getString('song');
-                    const voiceChannel = interaction.member.voice.channel;
-            
-                    if (!voiceChannel) {
-                        return interaction.reply('You need to be in a voice channel!');
-                    }
-            
-                    try {
-                        const player = aqua.createPlayer({
-                            guildId: interaction.guildId,
-                            voiceChannel: voiceChannel.id,
-                            textChannel: interaction.channelId
-                        });
-            
-                        const result = await aqua.search(query);
-                        if (!result.tracks.length) {
-                            return interaction.reply('No results found!');
-                        }
-            
-                        player.queue.add(result.tracks[0]);
-                        if (!player.playing) await player.play();
-            
-                        await interaction.reply(`Added ${result.tracks[0].title} to the queue!`);
-                    } catch (error) {
-                        console.error(error);
-                        await interaction.reply('An error occurred!');
-                    }
-                }
-            });</code></pre>
-                </div>
-            
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    <p>Make sure to have your client ID in the config file and a logger utility set up for proper initialization. This example assumes you have already set up slash commands in your Discord application.</p>
-                </div>
-            </section>
-
-            <section id="aqualink-class" class="content-section">
-                <h2>AquaLink Class</h2>
-                <p>The main class for interacting with Lavalink.</p>
-                
-                <h3>Constructor</h3>
-                <div class="method-block">
-                    <h4>new Aqua(client, options)</h4>
-                    <p>Creates a new AquaLink instance.</p>
-                    <div class="code-block">
-                        <pre><code>const aqua = new Aqua(client, {
-    nodes: [{
-        host: 'localhost',
-        port: 2333,
-        password: 'youshallnotpass',
-        secure: false
-    }],
-    defaultSearchPlatform: 'youtube'
-});</code></pre>
-                    </div>
-                </div>
-
-                <h3>Methods</h3>
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>.createPlayer(options)</h4>
-                        <p>Creates a new player instance for a guild.</p>
-                        <div class="code-block">
-                            <pre><code>const player = aqua.createPlayer({
-    guildId: '123456789',
-    voiceChannel: '987654321',
-    textChannel: '123789456'
-});</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="method-item">
-                        <h4>.search(query, options)</h4>
-                        <p>Searches for tracks using the specified query.</p>
-                        <div class="code-block">
-                            <pre><code>const results = await aqua.search('never gonna give you up');</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="player-class" class="content-section">
-                <h2>Player Class</h2>
-                <p>Handles music playback and track management.</p>
-
-                <h3>Methods</h3>
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>.play()</h4>
-                        <p>Starts playing the current track in the queue.</p>
-                        <div class="code-block">
-                            <pre><code>await player.play();</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="method-item">
-                        <h4>.pause() / .resume()</h4>
-                        <p>Controls playback state.</p>
-                        <div class="code-block">
-                            <pre><code>player.pause(true);
-player.pause(false);</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="method-item">
-                        <h4>.stop()</h4>
-                        <p>Stops the current track and clears the queue.</p>
-                        <div class="code-block">
-                            <pre><code>player.stop();</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section id="playing-track" class="content-section">
-                <h2>Playing a Track</h2>
-                <p>Here's how to play a track using AquaLink, including automatic player creation if needed:</p>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#play-track-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="play-track-code">async function playTrack(guildId, track) {
-                let player = client.aqua.players.get(interaction.guildId);
-                if (!player) {
-                    player = client.aqua.createConnection({
-                        defaultVolume: 65,
-                        guildId: interaction.guildId,
-                        voiceChannel: interaction.member.voice.channelId,
-                        textChannel: interaction.channelId,
-                        deaf: true
-                    });
-                }
-                player.play(track);
-            }</code></pre>
-                </div>
-            
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    <p>This function checks for an existing player and creates one if needed. The player is configured with default settings including volume level and automatic deafening of the bot.</p>
-                </div>
-            
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>Parameters</h4>
-                        <ul>
-                            <li><code>guildId</code> - The ID of the guild (server)</li>
-                            <li><code>track</code> - The track object to play</li>
-                        </ul>
-                    </div>
-                    <div class="method-item">
-                        <h4>Player Options</h4>
-                        <ul>
-                            <li><code>defaultVolume</code> - Initial volume level (0-100)</li>
-                            <li><code>guildId</code> - The guild ID for the connection</li>
-                            <li><code>voiceChannel</code> - The voice channel ID to connect to</li>
-                            <li><code>textChannel</code> - The text channel ID for notifications</li>
-                            <li><code>deaf</code> - Whether the bot should be deafened</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section id="search-track" class="content-section">
-                <h2>Example of Searching for a Track Using Lavalink</h2>
-                <p>Here's how to search for tracks and add them to the queue using AquaLink's resolve method:</p>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#search-track-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="search-track-code">async function searchAndPlay(guildId, query) {
-                const resolve = await client.aqua.resolve({
-                    query,
-                    requester: interaction.member, // optional!
-                    source: "scsearch"
-                });
-                if (!results.tracks.length) return console.log("No results found.");
-            
-                const track = results.tracks[0]; 
-                await player.queue.add(track)
-                if (!player.playing && !player.paused && player.queue.size > 0) {
-                    player.play();
-                }
-            }</code></pre>
-                </div>
-            
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    <p>The resolve method supports different search sources like 'ytsearch' (YouTube), 'scsearch' (SoundCloud), and direct URLs. The requester field is optional but useful for tracking who requested each track.</p>
-                </div>
-            
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>Parameters</h4>
-                        <ul>
-                            <li><code>guildId</code> - The ID of the guild (server)</li>
-                            <li><code>query</code> - The search query or URL</li>
-                        </ul>
-                    </div>
-                    <div class="method-item">
-                        <h4>Resolve Options</h4>
-                        <ul>
-                            <li><code>query</code> - The search term or URL</li>
-                            <li><code>requester</code> - The user who requested the track (optional)</li>
-                            <li><code>source</code> - The search source (ytsearch, scsearch, etc.)</li>
-                        </ul>
-                    </div>
-                    <div class="method-item">
-                        <h4>Supported Sources</h4>
-                        <ul>
-                            <li><code>ytsearch</code> - YouTube search</li>
-                            <li><code>scsearch</code> - SoundCloud search</li>
-                            <li><code>dzsearch</code> - Deezer search</li>
-                            <li>Direct URLs from supported platforms</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section id="playback-control" class="content-section">
-                <h2>Controlling Playback</h2>
-                <p>Here are various methods to control music playback using AquaLink:</p>
-            
-                <h3>Pausing and Resuming</h3>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#pause-resume-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="pause-resume-code">async function pausePlayback(guildId) {
-                const player = client.aqua.players.get(interaction.guildId);
-                if (player) player.pause(true);
-            }
-            
-            async function resumePlayback(guildId) {
-                const player = client.aqua.players.get(interaction.guildId);
-                if (player) player.pause(false);
-            }</code></pre>
-                </div>
-            
-                <h3>Skipping a Track</h3>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#skip-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="skip-code">async function skipTrack(guildId) {
-                const player = client.aqua.players.get(interaction.guildId);
-                if (player) player.stop();
-            }</code></pre>
-                </div>
-            
-                <h3>Stopping and Disconnecting</h3>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#stop-disconnect-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="stop-disconnect-code">async function stopPlayback(guildId) {
-                const player = client.aqua.players.get(interaction.guildId);
-                if (player) player.stop();
-            }
-            
-            async function disconnectPlayer(guildId) {
-                const player = client.aqua.players.get(interaction.guildId);
-                if (player) player.destroy();
-            }</code></pre>
-                </div>
-            
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    <p>All these functions first check if a player exists for the guild before attempting to control playback. The destroy() method will completely remove the player instance and disconnect from the voice channel.</p>
-                </div>
-            
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>Available Methods</h4>
-                        <ul>
-                            <li><code>pause(boolean)</code> - Pause or resume playback</li>
-                            <li><code>stop()</code> - Stop current track and move to next in queue</li>
-                            <li><code>destroy()</code> - Disconnect and cleanup player instance</li>
-                        </ul>
-                    </div>
-                    <div class="method-item">
-                        <h4>Parameters</h4>
-                        <ul>
-                            <li><code>guildId</code> - The ID of the guild (server)</li>
-                            <li><code>pause(true/false)</code> - True to pause, false to resume</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section id="queue-management" class="content-section">
-                <h2>Queue Management</h2>
-                <p>Here are methods to manage the track queue in AquaLink:</p>
-            
-                <h3>Adding a Track to the Queue</h3>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#add-queue-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="add-queue-code">async function addToQueue(guildId, track) {
-                const player = client.aqua.players.get(interaction.guildId);
-                if (!player.queue) player.queue = [];
-            
-                player.queue.push(track);
-                if (!player.playing) playTrack(guildId, player.queue.shift());
-            }</code></pre>
-                </div>
-            
-                <h3>Viewing the Current Queue</h3>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#view-queue-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="view-queue-code">async function viewQueue(guildId) {
-                const player = client.aqua.players.get(interaction.guildId);
-                if (!player || !player.queue.length) return console.log("The queue is empty.");
-            
-                console.log("Current Queue:");
-                player.queue.forEach((track, index) => {
-                    console.log(`${index + 1}. ${track.info.title}`);
-                });
-            }</code></pre>
-                </div>
-            
-                <h3>Looping a Track</h3>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#loop-track-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="loop-track-code">async function loopTrack(guildId) {
-                const player = client.aqua.players.get(interaction.guildId);
-                if (!player) return;
-            
-                player.queue.unshift(player.queue[player.queue.length - 1]); 
-            }</code></pre>
-                </div>
-            
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    <p>Queue management functions handle the playlist of tracks. The queue is maintained per guild, and tracks are automatically played in sequence. The loop function adds the current track back to the beginning of the queue for continuous playback.</p>
-                </div>
-            
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>Queue Methods</h4>
-                        <ul>
-                            <li><code>push(track)</code> - Add a track to the end of queue</li>
-                            <li><code>shift()</code> - Remove and return the first track</li>
-                            <li><code>unshift(track)</code> - Add a track to the beginning</li>
-                            <li><code>forEach(callback)</code> - Iterate through the queue</li>
-                        </ul>
-                    </div>
-                    <div class="method-item">
-                        <h4>Track Properties</h4>
-                        <ul>
-                            <li><code>track.info.title</code> - The track's title</li>
-                            <li><code>track.info.author</code> - The track's author</li>
-                            <li><code>track.info.length</code> - Duration in milliseconds</li>
-                            <li><code>track.info.uri</code> - Source URL of the track</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section id="cleanup" class="content-section">
-                <h2>Disconnecting and Cleanup</h2>
-                <p>To ensure your bot properly disconnects and cleans up resources, use the following:</p>
-            
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#cleanup-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="cleanup-code">async function cleanup(guildId) {
-                const player = client.aqua.players.get(interaction.guildId);
-                if (player) {
-                    player.stop();
-                    player.destroy();
-                }
-            }</code></pre>
-                </div>
-            
-                <div class="alert alert-warning">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <p>Always ensure proper cleanup when disconnecting your bot to prevent resource leaks and hanging voice connections. This is especially important when handling bot shutdowns or voice channel leave events.</p>
-                </div>
-            
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>Cleanup Steps</h4>
-                        <ul>
-                            <li><code>player.stop()</code> - Stops any current playback</li>
-                            <li><code>player.destroy()</code> - Destroys the player instance and disconnects from voice</li>
-                        </ul>
-                    </div>
-                    <div class="method-item">
-                        <h4>Usage Examples</h4>
-                        <ul>
-                            <li>Bot shutdown events</li>
-                            <li>Voice channel leave events</li>
-                            <li>Guild leave events</li>
-                            <li>Manual disconnect commands</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section id="voice-state" class="content-section">
-                <h2>Handling Voice State Updates</h2>
-                <p>AquaLink requires voice state updates to maintain connections. Ensure you handle these events properly:</p>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#voice-state-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="voice-state-code">client.on("raw", (d) => {
-                if (![GatewayDispatchEvents.VoiceStateUpdate, GatewayDispatchEvents.VoiceServerUpdate].includes(d.t)) return;
-                client.aqua.updateVoiceState(d);
-            });</code></pre>
-                </div>
-            
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    <p>This event handler is crucial for maintaining stable voice connections. It processes voice state and server updates from Discord and passes them to AquaLink for proper connection management.</p>
-                </div>
-            </section>
-            <section id="voice-connect" class="content-section">
-                <h2>Connecting to a Voice Channel</h2>
-                <p>Here's how to connect your bot to a voice channel using AquaLink:</p>
-                <div class="code-block">
-                    <div class="code-header">
-                        <span>JavaScript</span>
-                        <button class="copy-btn" data-clipboard-target="#voice-connect-code">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <pre><code id="voice-connect-code">async function connectToChannel(guildId, channelId) {
-                const player = client.aqua.players.get(interaction.guildId);
-                player.connect(channelId);
-            }</code></pre>
-                </div>
-            
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    <p>The player instance handles the voice connection. Make sure you have a valid player instance before attempting to connect, and ensure the bot has the necessary permissions in the voice channel.</p>
-                </div>
-            
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>Parameters</h4>
-                        <ul>
-                            <li><code>guildId</code> - The ID of the guild (server)</li>
-                            <li><code>channelId</code> - The ID of the voice channel to connect to</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="queue-class" class="content-section">
-                <h2>Queue Class</h2>
-                <p>Manages the track queue system.</p>
-
-                <h3>Methods</h3>
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>.add(track)</h4>
-                        <p>Adds a track to the queue.</p>
-                        <div class="code-block">
-                            <pre><code>player.queue.add(track);</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="method-item">
-                        <h4>.remove(index)</h4>
-                        <p>Removes a track from the queue.</p>
-                        <div class="code-block">
-                            <pre><code>player.queue.remove(0);</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="method-item">
-                        <h4>.shuffle()</h4>
-                        <p>Shuffles the current queue.</p>
-                        <div class="code-block">
-                            <pre><code>player.queue.shuffle();</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="node-class" class="content-section">
-                <h2>Node Class</h2>
-                <p>Manages Lavalink node connections.</p>
-
-                <h3>Properties</h3>
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>.stats</h4>
-                        <p>Current node statistics.</p>
-                        <div class="code-block">
-                            <pre><code>console.log(node.stats);</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="filters-section" class="content-section">
-                <h2>Audio Filters</h2>
-                <p>Apply audio effects and filters to your music.</p>
-
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>Equalizer</h4>
-                        <div class="code-block">
-                            <pre><code>player.filters.setTremolo(true); ex: ({
-    equalizer: [
-        { band: 0, gain: 0.6 },
-        { band: 1, gain: 0.7 },
-        { band: 2, gain: 0.8 }
-    ]
-});</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="method-item">
-                        <h4>Karaoke</h4>
-                        <div class="code-block">
-                            <pre><code>player.setFilter({
-    karaoke: {
-        level: 1.0,
-        monoLevel: 1.0,
-        filterBand: 220.0,
-        filterWidth: 100.0
-    }
-});</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="events-section" class="content-section">
-                <h2>Events</h2>
-                <p>Handle various player and track events.</p>
-               <div class="method-list">
-                    <div class="method-item">
-                        <h4>trackStart</h4>
-                        <div class="code-block">
-                            <pre><code>client.aqua.on('trackStart', (track) => {
-    console.log(`Now playing: ${track.info.title}`);
-});</code></pre>
-
-                    <div class="method-item">
-                        <h4>queueEnd</h4>
-                        <div class="code-block">
-                            <pre><code>client.aqua.on('queueEnd', () => {
-    console.log('Queue has ended!');
-});</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section id="events-section" class="content-section">
-                <h2>Events</h2>
-                <p>Handle various node, player, and track events in AquaLink.</p>
-            
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>Node Events</h4>
-                        <p>Events related to Lavalink node connections.</p>
-                        <div class="code-block">
-                            <div class="code-header">
-                                <span>Node Events</span>
-                                <button class="copy-btn" data-clipboard-target="#node-events">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                            </div>
-                            <pre><code id="node-events">// Node connection event ex: const client = require("../../../index.js");
-            client.aqua.on('nodeConnect', (node) => {
-                console.log(`Node ${node.host} connected`);
-            });
-            
-            client.aqua.on('nodeDisconnect', (node, reason) => {
-                console.log(`Node disconnected: ${reason}`);
-            });
-            
-            client.aqua.on('nodeError', (node, error) => {
-                console.error(`Node ${node.host} had an error: ${error.message}`);
-            });</code></pre>
-                        </div>
-                    </div>
-            
-                    <div class="method-item">
-                        <h4>Player Events</h4>
-                        <p>Events related to player lifecycle.</p>
-                        <div class="code-block">
-                            <div class="code-header">
-                                <span>Player Events</span>
-                                <button class="copy-btn" data-clipboard-target="#player-events">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                            </div>
-                            <pre><code id="player-events">// the client is your index.js ex: const client = require("../../../index.js");
-            client.aqua.on('playerCreate', (player) => {
-                console.log(`Player created in guild: ${player.guildId}`);
-            });
-            
-            client.aqua.on('playerDestroy', (player) => {
-                console.log(`Player destroyed in guild: ${player.guildId}`);
-            });
-            
-            client.aqua.on('queueEnd', (player) => {
-                console.log(`Queue ended in guild: ${player.guildId}`);
-                setTimeout(() => {
-                    if (!player.playing) player.disconnect();
-                }, 300000); 
-            });</code></pre>
-                        </div>
-                    </div>
-            
-                    <div class="method-item">
-                        <h4>Track Events</h4>
-                        <p>Events related to track playback.</p>
-                        <div class="code-block">
-                            <div class="code-header">
-                                <span>Track Events</span>
-                                <button class="copy-btn" data-clipboard-target="#track-events">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                            </div>
-                            <pre><code id="track-events">
-            client.aqua.on('trackStart', (track) => {
-                console.log(`Now playing: ${track.title}`);
-            });
-            
-            client.aqua.on('trackEnd', (track, reason) => {
-                console.log(`Track ${track.title} ended: ${reason}`);
-            });
-            
-            client.aqua.on('trackError', (track, error) => {
-                console.error(`Error playing ${track.title}: ${error.message}`);
-            });
-            
-            client.aqua.on('trackStuck', (track, threshold) => {
-                console.warn(`Track ${track.title} got stuck (threshold: ${threshold}ms)`);
-                player.skip(); 
-            });</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section id="troubleshooting" class="content-section">
-                <h2>Troubleshooting</h2>
-                <p>Common issues and their solutions when working with AquaLink:</p>
-            
-                <div class="troubleshooting-grid">
-                    <div class="trouble-card">
-                        <h3>
-                            <i class="fas fa-volume-mute"></i>
-                            No Sound or Bot Not Joining
-                        </h3>
-                        <ul>
-                            <li>✓ Ensure the Lavalink server is running and accessible.</li>
-                            <li>✓ Verify the Lavalink password and port are correct in your code.</li>
-                            <li>✓ Ensure your bot has the correct permissions (CONNECT and SPEAK).</li>
-                        </ul>
-                        <div class="code-block">
-                            <pre><code>// Example permissions check
-            if (!voiceChannel.permissionsFor(client.user).has(['CONNECT', 'SPEAK'])) {
-                return console.log('Missing required voice permissions!');
-            }</code></pre>
-                        </div>
-                    </div>
-            
-                    <div class="trouble-card">
-                        <h3>
-                            <i class="fas fa-door-open"></i>
-                            Bot Leaves the Channel Unexpectedly
-                        </h3>
-                        <ul>
-                            <li>✓ The bot may be idle for too long. Consider implementing an inactivity timeout.</li>
-                            <li>✓ Lavalink may be crashing—check your Lavalink logs.</li>
-                        </ul>
-                        <div class="code-block">
-                            <pre><code>// Example inactivity timeout
-            client.on('queueEnd', (player) => {
-                setTimeout(() => {
-                    if (!player.playing) player.destroy();
-                }, 300000); // 5 minutes
-            });</code></pre>
-                        </div>
-                    </div>
-            
-                    <div class="trouble-card">
-                        <h3>
-                            <i class="fas fa-exclamation-triangle"></i>
-                            Music Skipping or Lagging
-                        </h3>
-                        <ul>
-                            <li>✓ Check your server's CPU and memory usage. Lavalink requires adequate resources.</li>
-                            <li>✓ If hosting Lavalink remotely, ensure the network connection is stable.</li>
-                        </ul>
-                        <div class="alert alert-info">
-                            <i class="fas fa-info-circle"></i>
-                            <p>Recommended minimum specs for Lavalink: 2 CPU cores, 512MB RAM</p>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="alert alert-warning">
-                    <i class="fas fa-tools"></i>
-                    <p>If issues persist, check the Lavalink server logs for detailed error messages. You can also enable debug mode in AquaLink for more detailed logging:</p>
-                    <div class="code-block">
-                        <pre><code>client.aqua = new Aqua(client, nodes, {
-                debug: true,
-                // ... other options
-            });</code></pre>
-                    </div>
-                </div>
-            
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>Common Error Codes</h4>
-                        <ul>
-                            <li><code>ECONNREFUSED</code> - Lavalink server not accessible</li>
-                            <li><code>AuthenticationFailed</code> - Incorrect Lavalink password</li>
-                            <li><code>TrackStuck</code> - Track playback issues</li>
-                            <li><code>LoadFailed</code> - Unable to load track</li>
-                        </ul>
-                    </div>
-                    <div class="method-item">
-                        <h4>Required Permissions</h4>
-                        <ul>
-                            <li><code>CONNECT</code> - Join voice channels</li>
-                            <li><code>SPEAK</code> - Play audio in voice channels</li>
-                            <li><code>VIEW_CHANNEL</code> - See the voice channel</li>
-                            <li><code>USE_VAD</code> - Use voice activity</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section id="error-handling-section" class="content-section">
-                <h2>Error Handling</h2>
-                <p>Handle and manage errors effectively.</p>
-
-                <div class="method-list">
-                    <div class="method-item">
-                        <h4>Error Events</h4>
-                        <div class="code-block">
-                            <pre><code>client.aqua.on('error', (error) => {
-    console.error('Player error:', error);
-});
-
-client.aqua.on('nodeError', (node, error) => {
-    console.error(`Node ${node.host} error:`, error);
-});</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+ <body>
+  <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+  <canvas id="stars-canvas"></canvas>
+  <div class="sidebar-trigger"></div>
+  <div class="container">
+   <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+     <div class="logo">Aqua</div>
+     <div class="subtitle">Lavalink Client Documentation</div>
     </div>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-left">
-                <p>© 2025 AquaLink. MIT License.</p>
-            </div>
-            <div class="footer-right">
-                <a href="https://github.com/ToddyTheNoobDud/AquaLink/issues">Issues</a>
-                <a href="https://github.com/ToddyTheNoobDud/AquaLink/blob/main/LICENSE">License</a>
-                <a href="https://discord.gg/BNrPCvgrCf">Support</a>
-            </div>
-        </div>
-    </footer>
+    <div class="search-box">
+     <input
+      type="text"
+      class="search-input"
+      placeholder="Search documentation..."
+      id="searchInput"
+     />
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-    <script src="script.js"></script>
-</body>
+    <div class="nav-menu">
+     <a href="#" class="nav-item active" data-section="home">Home</a>
+     <a href="#" class="nav-item" data-section="aqua">Aqua</a>
+     <a href="#" class="nav-item" data-section="rest">Rest</a>
+     <a href="#" class="nav-item" data-section="node">Node</a>
+     <a href="#" class="nav-item" data-section="player">Player</a>
+     <a href="#" class="nav-item" data-section="track">Track</a>
+     <a href="#" class="nav-item" data-section="events">Events</a>
+     <a href="#" class="nav-item" data-section="filters">Filters</a>
+     <a href="#" class="nav-item" data-section="queue">Queue</a>
+    </div>
+   </nav>
+
+   <main class="main">
+    <!-- Home Section -->
+    <section class="content-section active" id="home">
+     <div class="home-hero">
+      <div class="hero-content">
+       <h1 class="hero-title">
+        <span class="hero-aqua">Aqua</span>
+        <span class="hero-subtitle">Lavalink Client</span>
+       </h1>
+       <p class="hero-description">
+        A powerful and intuitive Lavalink client for Discord bots with advanced
+        features, failover support, and comprehensive audio management
+        capabilities.
+       </p>
+       <div class="hero-buttons">
+        <button class="btn btn-primary" onclick="showSection('aqua')">
+         Get Started
+        </button>
+        <button class="btn btn-secondary" onclick="showSection('player')">
+         View Examples
+        </button>
+       </div>
+      </div>
+     </div>
+
+     <div class="features-grid">
+      <div class="feature-card" onclick="showSection('aqua')">
+       <div class="feature-icon">⚙️</div>
+       <h3 class="feature-title">Easy Setup</h3>
+       <p class="feature-description">
+        Simple configuration with comprehensive options for nodes, failover, and
+        auto-resume functionality.
+       </p>
+      </div>
+
+      <div class="feature-card" onclick="showSection('player')">
+       <div class="feature-icon">🎵</div>
+       <h3 class="feature-title">Advanced Player</h3>
+       <p class="feature-description">
+        Full-featured audio player with queue management, filters, lyrics
+        support, and seamless playback controls.
+       </p>
+      </div>
+
+      <div class="feature-card" onclick="showSection('filters')">
+       <div class="feature-icon">🎛️</div>
+       <h3 class="feature-title">Audio Filters</h3>
+       <p class="feature-description">
+        Rich collection of audio effects including equalizer, karaoke,
+        timescale, tremolo, and rotation filters.
+       </p>
+      </div>
+
+      <div class="feature-card" onclick="showSection('events')">
+       <div class="feature-icon">📡</div>
+       <h3 class="feature-title">Event System</h3>
+       <p class="feature-description">
+        Comprehensive event handling for track lifecycle, player updates, and
+        queue management.
+       </p>
+      </div>
+
+      <div class="feature-card" onclick="showSection('queue')">
+       <div class="feature-icon">📋</div>
+       <h3 class="feature-title">Queue Management</h3>
+       <p class="feature-description">
+        Powerful queue system with shuffle, loop modes, autoplay, and advanced
+        track manipulation.
+       </p>
+      </div>
+
+      <div class="feature-card" onclick="showSection('node')">
+       <div class="feature-icon">🔗</div>
+       <h3 class="feature-title">Node Failover</h3>
+       <p class="feature-description">
+        Automatic failover between Lavalink nodes with configurable retry logic
+        and connection management.
+       </p>
+      </div>
+     </div>
+
+     <div class="quick-start">
+      <h2 class="quick-start-title">Quick Start</h2>
+      <div class="code-example">
+       <div class="code-block vscode-theme">
+        <pre>
+  <span class="keyword">const</span> { <span class="highlight">Aqua</span>, Client } = <span class="keyword">require</span>(<span class="string">"discord.js"</span>);
+  <span class="keyword">const</span> <span class="highlight">client</span> = <span class="keyword">new</span> <span class="highlight">Client</span>({ intents: [<span class="string">"Guilds"</span>, <span class="string">"GuildVoiceStates"</span>] });
+  <span class="keyword">const</span> <span class="highlight">aqua</span> = <span class="highlight">Aqua</span>(client, [{ <span class="highlight">host</span>: <span class="string">"127.0.0.1"</span>, <span class="highlight">password</span>: <span class="string">"yourpass"</span>, <span class="highlight">port</span>: <span class="highlight">233</span>, <span class="highlight">secure</span>: <span class="keyword">false</span>, <span class="highlight">name</span>: <span class="string">"localhost"</span> }], {
+    <span class="highlight">defaultSearchPlatform</span>: <span class="string">"ytsearch"</span>,
+    <span class="highlight">restVersion</span>: <span class="string">"v4"</span>
+  });
+  <span class="highlight">client</span>.<span class="highlight">aqua</span> = <span class="highlight">aqua</span>;
+
+  <span class="highlight">client</span>.<span class="highlight">once</span>(<span class="string">"ready"</span>, () => <span class="highlight">aqua</span>.<span class="highlight">init</span>(<span class="highlight">client</span>.<span class="highlight">user</span>.<span class="highlight">id</span>));
+  <span class="highlight">client</span>.<span class="highlight">on</span>(<span class="string">"messageCreate"</span>, <span class="keyword">async</span> (message) => {
+    <span class="keyword">if</span> (message.content.startsWith(<span class="string">"!play"</span>)) {
+      <span class="keyword">const</span> <span class="highlight">query</span> = message.content.slice(6);
+      <span class="keyword">const</span> <span class="highlight">player</span> = <span class="highlight">aqua</span>.<span class="highlight">createConnection</span>({
+     guildId: message.guild.id,
+     voiceChannel: message.member.voice.channel.id,
+     textChannel: message.channel.id
+      });
+      <span class="keyword">const</span> <span class="highlight">resolve</span> = <span class="keyword">await</span> <span class="highlight">aqua</span>.<span class="highlight">resolve</span>({
+     query,
+     requester: message.member
+      });
+      <span class="keyword">if</span> (resolve.loadType === <span class="string">'track'</span>) {
+     <span class="highlight">player</span>.<span class="highlight">queue</span>.<span class="highlight">add</span>(resolve.tracks[0]);
+     <span class="keyword">await</span> message.channel.send(<span class="string">`Added **${resolve.tracks[0].info.title}** to the queue.`</span>);
+     <span class="keyword">if</span> (!player.playing) <span class="highlight">player</span>.<span class="highlight">play</span>();
+      }
+    }
+  });
+
+  <span class="highlight">client</span>.<span class="highlight">login</span>(<span class="string">"Yourtokenhere"</span>);
+       </pre>
+       </div>
+      </div>
+     </div>
+
+     <div class="stats-section"></div>
+     <div class="stats-grid">
+      <div class="stat-item">
+       <div class="stat-number">⚡</div>
+       <div class="stat-label">Full Performance Focused</div>
+      </div>
+      <div class="stat-item">
+       <div class="stat-number">🎛️</div>
+       <div class="stat-label">Filters Support</div>
+      </div>
+      <div class="stat-item">
+       <div class="stat-number">🔄</div>
+       <div class="stat-label">True Node Auto Resume</div>
+      </div>
+      <div class="stat-item">
+       <div class="stat-number">🛡️</div>
+       <div class="stat-label">Stability</div>
+      </div>
+      <div class="stat-item">
+       <div class="stat-number">🎚️</div>
+       <div class="stat-label">Filters</div>
+      </div>
+     </div>
+    </section>
+
+    <!-- Aqua Section -->
+    <section class="content-section" id="aqua">
+     <div class="section-header">
+      <h1 class="section-title">Aqua (Options)</h1>
+      <p class="section-description">
+       Main client configuration and initialization options for the Aqua
+       Lavalink client.
+      </p>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       Constructor
+       <span class="method-type">CLASS</span>
+      </div>
+      <p class="method-description">
+       Initialize a new Aqua client instance with custom options.
+      </p>
+
+      <div class="code-block vscode-theme">
+       <pre>
+<span class="keyword">const</span> { <span class="highlight">Aqua</span> } = <span class="keyword">require</span>(<span class="string">'aqualink'</span>);
+
+<span class="keyword">const</span> <span class="highlight">aqua</span> = <span class="keyword">new</span> <span class="highlight">Aqua</span>({
+<span class="highlight">nodes</span>: [{
+    <span class="highlight">host</span>: <span class="string">'localhost'</span>,
+    <span class="highlight">port</span>: <span class="highlight">2333</span>,
+    <span class="highlight">password</span>: <span class="string">'youshallnotpass'</span>,
+    <span class="highlight">secure</span>: <span class="keyword">false</span>
+}],
+<span class="highlight">defaultSearchPlatform</span>: <span class="string">'ytsearch</span>,
+<span class="highlight">shouldDeleteMessage</span>: <span class="keyword">false</span>,
+<span class="highlight">leaveOnEnd</span>: <span class="keyword">true</span>,
+<span class="highlight">restVersion</span>: <span class="string">'v4'</span>,
+<span class="highlight">plugins</span>: [],
+<span class="highlight">autoResume</span>: <span class="keyword">false</span>,
+<span class="highlight">infiniteReconnects</span>: <span class="keyword">false</span>,
+<span class="highlight">failoverOptions</span>: {
+    <span class="highlight">enabled</span>: <span class="keyword">true</span>,
+    <span class="highlight">maxRetries</span>: <span class="highlight">3</span>,
+    <span class="highlight">retryDelay</span>: <span class="highlight">1000</span>,
+    <span class="highlight">preservePosition</span>: <span class="keyword">true</span>,
+    <span class="highlight">resumePlayback</span>: <span class="keyword">true</span>,
+    <span class="highlight">cooldownTime</span>: <span class="highlight">5000</span>,
+    <span class="highlight">maxFailoverAttempts</span>: <span class="highlight">5</span>
+    }
+});
+                        </pre>
+      </div>
+
+      <table class="param-table">
+       <thead>
+        <tr>
+         <th>Parameter</th>
+         <th>Type</th>
+         <th>Description</th>
+         <th>Required</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>nodes</td>
+         <td>Array&lt;NodeOptions&gt;</td>
+         <td>Array of Lavalink node configurations</td>
+         <td>
+          <span class="badge badge-required">Required</span>
+         </td>
+        </tr>
+        <tr>
+         <td>defaultSearchPlatform</td>
+         <td>string</td>
+         <td>Default platform for track searches</td>
+         <td>
+          <span class="badge badge-optional">Optional</span>
+         </td>
+        </tr>
+        <tr>
+         <td>shouldDeleteMessage</td>
+         <td>boolean</td>
+         <td>Delete messages after processing</td>
+         <td>
+          <span class="badge badge-optional">Optional</span>
+         </td>
+        </tr>
+        <tr>
+         <td>leaveOnEnd</td>
+         <td>boolean</td>
+         <td>Leave voice channel when queue ends</td>
+         <td>
+          <span class="badge badge-optional">Optional</span>
+         </td>
+        </tr>
+        <tr>
+         <td>restVersion</td>
+         <td>string</td>
+         <td>REST API version</td>
+         <td>
+          <span class="badge badge-optional">Optional</span>
+         </td>
+        </tr>
+        <tr>
+         <td>plugins</td>
+         <td>Array</td>
+         <td>Array of plugin instances</td>
+         <td>
+          <span class="badge badge-optional">Optional</span>
+         </td>
+        </tr>
+        <tr>
+         <td>autoResume</td>
+         <td>boolean</td>
+         <td>Automatically resume playback after reconnect</td>
+         <td>
+          <span class="badge badge-optional">Optional</span>
+         </td>
+        </tr>
+        <tr>
+         <td>infiniteReconnects</td>
+         <td>boolean</td>
+         <td>Enable infinite reconnect attempts</td>
+         <td>
+          <span class="badge badge-optional">Optional</span>
+         </td>
+        </tr>
+        <tr>
+         <td>failoverOptions</td>
+         <td>object</td>
+         <td>Failover and retry configuration</td>
+         <td>
+          <span class="badge badge-optional">Optional</span>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       init()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Initialize the Aqua client and connect to Lavalink nodes.
+      </p>
+
+      <div class="code-block vscode-theme">
+       <pre>
+        <span class="comment">// Needs to be used before the client login</span>
+        client.on(<span class="string">'ready'</span>, (client) => {
+            <span class="comment">// Initialize the client</span>
+            <span class="highlight">client</span>.<span class="highlight">aqua</span>.<span class="highlight">init</span>(<span class="highlight">client</span>.<span class="highlight">user</span>.<span class="highlight">id</span>);
+
+            <span class="comment">// Client is now ready to use</span>
+            <span class="highlight">console</span>.<span class="highlight">log</span>(<span class="string">'Aqua client initialized!'</span>);
+        });
+                        </pre>
+      </div>
+     </div>
+    </section>
+
+    <!-- Rest Section -->
+    <section class="content-section" id="rest">
+     <div class="section-header">
+      <h1 class="section-title">Rest</h1>
+      <p class="section-description">
+       REST API methods for interacting with Lavalink nodes directly. NOT MADE
+       TO BE USED.
+      </p>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       updatePlayer(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Update player state or settings via REST API.
+      </p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">client</span>.<span class="highlight">rest</span
+       >.<span class="highlight">updatePlayer</span>({
+       <span class="highlight">guildId</span>:
+       <span class="string">"123456789012345678"</span>,
+       <span class="highlight">paused</span>: <span class="keyword">true</span>,
+       <span class="highlight">volume</span>:
+       <span class="highlight">80</span>
+       });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       getPlayers()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Get all active players from the Lavalink node.
+      </p>
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">players</span> =
+       <span class="keyword">await</span>
+       <span class="highlight">client</span>.<span class="highlight">rest</span
+       >.<span class="highlight">getPlayers</span>();
+       <span class="highlight">console</span>.<span class="highlight">log</span
+       >(<span class="string">'Players:'</span>,
+       <span class="highlight">players</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       destroyPlayer(guildId)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Destroy a player for a specific guild.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">client</span>.<span class="highlight">rest</span
+       >.<span class="highlight">destroyPlayer</span>(<span class="string"
+        >"123456789012345678"</span
+       >);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       getTracks(identifier)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Get track(s) by identifier from Lavalink.
+      </p>
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">tracks</span> =
+       <span class="keyword">await</span>
+       <span class="highlight">client</span>.<span class="highlight">rest</span
+       >.<span class="highlight">getTracks</span>(<span class="string"
+        >"dQw4w9WgXcQ"</span
+       >); <span class="highlight">console</span>.<span class="highlight"
+        >log</span
+       >(<span class="string">'Tracks:'</span>,
+       <span class="highlight">tracks</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       decodeTrack(track)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Decode a base64 encoded track string to get track information.
+      </p>
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">trackInfo</span> =
+       <span class="keyword">await</span>
+       <span class="highlight">client</span>.<span class="highlight">rest</span
+       >.<span class="highlight">decodeTrack</span>(<span class="highlight"
+        >encodedTrack</span
+       >); <span class="highlight">console</span>.<span class="highlight"
+        >log</span
+       >(<span class="highlight">trackInfo</span>.<span class="highlight"
+        >title</span
+       >, <span class="highlight">trackInfo</span>.<span class="highlight"
+        >author</span
+       >);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       decodeTracks(tracks)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Decode multiple base64 encoded tracks.</p>
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">trackInfos</span> =
+       <span class="keyword">await</span>
+       <span class="highlight">client</span>.<span class="highlight">rest</span
+       >.<span class="highlight">decodeTracks</span>([<span class="highlight"
+        >encodedTrack1</span
+       >, <span class="highlight">encodedTrack2</span>]);
+       <span class="highlight">console</span>.<span class="highlight">log</span
+       >(<span class="highlight">trackInfos</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       getStats()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Get current statistics from the Lavalink node.
+      </p>
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">stats</span> =
+       <span class="keyword">await</span>
+       <span class="highlight">client</span>.<span class="highlight">rest</span
+       >.<span class="highlight">getStats</span>();
+       <span class="highlight">console</span>.<span class="highlight">log</span
+       >(<span class="string">'Players:'</span>,
+       <span class="highlight">stats</span>.<span class="highlight"
+        >players</span
+       >); <span class="highlight">console</span>.<span class="highlight"
+        >log</span
+       >(<span class="string">'Playing players:'</span>,
+       <span class="highlight">stats</span>.<span class="highlight"
+        >playingPlayers</span
+       >);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       getInfo()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Get Lavalink node information.</p>
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">info</span> =
+       <span class="keyword">await</span>
+       <span class="highlight">client</span>.<span class="highlight">rest</span
+       >.<span class="highlight">getInfo</span>();
+       <span class="highlight">console</span>.<span class="highlight">log</span
+       >(<span class="string">'Node info:'</span>,
+       <span class="highlight">info</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       getRoutePlannerStatus()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Get route planner status from Lavalink.</p>
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">status</span> =
+       <span class="keyword">await</span>
+       <span class="highlight">client</span>.<span class="highlight">rest</span
+       >.<span class="highlight">getRoutePlannerStatus</span>();
+       <span class="highlight">console</span>.<span class="highlight">log</span
+       >(<span class="string">'Route planner status:'</span>,
+       <span class="highlight">status</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       getRoutePlannerAddress(address)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Unmark an address from the route planner.
+      </p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">client</span>.<span class="highlight">rest</span
+       >.<span class="highlight">getRoutePlannerAddress</span>(<span
+        class="string"
+        >"1.2.3.4"</span
+       >);
+      </div>
+     </div>
+    </section>
+
+    <!-- Node Section -->
+    <section class="content-section" id="node">
+     <div class="section-header">
+      <h1 class="section-title">Node</h1>
+      <p class="section-description">
+       Lavalink node connection status, statistics, and events.
+      </p>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       Get Connected Nodes
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Get all connected Lavalink nodes and their status.
+      </p>
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">nodes</span> = [...<span class="highlight"
+        >client</span
+       >.<span class="highlight">aqua</span>.<span class="highlight"
+        >nodeMap</span
+       >.values()]; <span class="keyword">const</span>
+       <span class="highlight">isOnline</span> =
+       <span class="highlight">nodes</span>.some(node => node.connected);
+       <span class="keyword">const</span>
+       <span class="highlight">connectedNodes</span> =
+       <span class="highlight">nodes</span>.filter(node =>
+       node.connected).length;
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       stats
+       <span class="method-type">PROPERTY</span>
+      </div>
+      <p class="method-description">Lavalink node statistics returned.</p>
+      <div class="code-block">
+       <span class="keyword">this</span>.stats = { players: 0, playingPlayers:
+       0, uptime: 0, memory: { free: 0, used: 0, allocated: 0, reservable: 0,
+       freePercentage: 0, usedPercentage: 0 }, cpu: { cores: 0, systemLoad: 0,
+       lavalinkLoad: 0, lavalinkLoadPercentage: 0 }, frameStats: { sent: 0,
+       nulled: 0, deficit: 0 }, ping: 0 };
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       Events Emitted
+       <span class="event-badge">EVENTS</span>
+      </div>
+      <p class="method-description">
+       Node events emitted for connection state changes.
+      </p>
+      <div class="code-block">nodeReconnect nodeDisconnect nodeConnected</div>
+     </div>
+    </section>
+
+    <!-- Player Section -->
+    <section class="content-section" id="player">
+     <div class="section-header">
+      <h1 class="section-title">Player</h1>
+      <p class="section-description">
+       Audio player controls and playback management methods.
+      </p>
+     </div>
+
+     <!-- FIXED: createConnection method -->
+     <div class="method-card">
+      <div class="method-name">
+       createConnection(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Create a new player connection for a guild.
+      </p>
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">player</span> =
+       <span class="highlight">client</span>.<span class="highlight">aqua</span
+       >.<span class="highlight">createConnection</span>({
+       <span class="highlight">guildId</span>:
+       <span class="string">"123456789012345678"</span>,
+       <span class="highlight">textChannel</span>:
+       <span class="string">"123456789012345678"</span>,
+       <span class="highlight">voiceChannel</span>:
+       <span class="string">"123456789012345678"</span>,
+       <span class="highlight">deaf</span>:
+       <span class="keyword">true</span>
+       });
+      </div>
+     </div>
+
+     <!-- FIXED: queue.add(track) method -->
+     <div class="method-card">
+      <div class="method-name">
+       queue.add(track)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Add a track to the player's queue.</p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight">queue</span
+       >.<span class="highlight">add</span>(<span class="highlight">track</span
+       >);
+      </div>
+     </div>
+
+     <!-- FIXED: play() method -->
+     <div class="method-card">
+      <div class="method-name">
+       play()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Start playback of the current track in the queue.
+      </p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight">play</span
+       >();
+      </div>
+     </div>
+
+     <!-- FIXED: setVolume(volume) method -->
+     <div class="method-card">
+      <div class="method-name">
+       setVolume(volume)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Set the playback volume (0-1000).</p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight"
+        >setVolume</span
+       >(<span class="highlight">75</span>);
+      </div>
+     </div>
+
+     <!-- FIXED: pause(paused) method -->
+     <div class="method-card">
+      <div class="method-name">
+       pause(paused)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Pause or resume playback. Pass <code>true</code> to pause,
+       <code>false</code> to resume.
+      </p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight">pause</span
+       >(<span class="keyword">true</span>);
+       <span class="highlight">player</span>.<span class="highlight">pause</span
+       >(<span class="keyword">false</span>);
+      </div>
+     </div>
+
+     <!-- FIXED: skip() method -->
+     <div class="method-card">
+      <div class="method-name">
+       skip()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Skip to the next track in the queue.</p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight">skip</span
+       >();
+      </div>
+     </div>
+
+     <!-- FIXED: shuffle() method -->
+     <div class="method-card">
+      <div class="method-name">
+       shuffle()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Shuffle the queue.</p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight"
+        >shuffle</span
+       >();
+      </div>
+     </div>
+
+     <!-- FIXED: setLoop(mode) method -->
+     <div class="method-card">
+      <div class="method-name">
+       setLoop(mode)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Set loop mode. Options: <code>'track'</code>, <code>'queue'</code>,
+       <code>'none'</code>.
+      </p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight"
+        >setLoop</span
+       >(<span class="string">'track'</span>);
+       <span class="highlight">player</span>.<span class="highlight"
+        >setLoop</span
+       >(<span class="string">'queue'</span>);
+       <span class="highlight">player</span>.<span class="highlight"
+        >setLoop</span
+       >(<span class="string">'none'</span>);
+      </div>
+     </div>
+
+     <!-- FIXED: setAutoplay(enabled) method -->
+     <div class="method-card">
+      <div class="method-name">
+       setAutoplay(enabled)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Enable or disable autoplay.</p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight"
+        >setAutoplay</span
+       >(<span class="keyword">true</span>);
+       <span class="highlight">player</span>.<span class="highlight"
+        >setAutoplay</span
+       >(<span class="keyword">false</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       destroy()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Destroy the player and disconnect.</p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight"
+        >destroy</span
+       >();
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       getLyrics([query], [useCurrentTrack], [skipTrackSource])
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Get lyrics for the current or specified track.
+      </p>
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">lyrics</span> =
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >getLyrics</span
+       >();
+       <span class="comment"
+        >// Optional: query, useCurrentTrack = true, skipTrackSource =
+        false</span
+       >
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       subscribeLiveLyrics()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Subscribe to live lyrics updates.</p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight"
+        >subscribeLiveLyrics</span
+       >();
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       unsubscribeLiveLyrics()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Unsubscribe from live lyrics updates.</p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight"
+        >unsubscribeLiveLyrics</span
+       >();
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       seek(position)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Seek to a specific position in the current track (milliseconds).
+      </p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight">seek</span
+       >(<span class="highlight">60000</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       stop()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Stop playback and clear the current track.
+      </p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight">stop</span
+       >();
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       setTextChannel(channelId)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Set the text channel for player events.</p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight"
+        >setTextChannel</span
+       >(<span class="string">"123456789012345678"</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       setVoiceChannel(channelId)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Set the voice channel for playback.</p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight"
+        >setVoiceChannel</span
+       >(<span class="string">"123456789012345678"</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       disconnect()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Disconnect the player from the voice channel.
+      </p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight"
+        >disconnect</span
+       >();
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       getQueue()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Get the current queue.</p>
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">queue</span> =
+       <span class="highlight">player</span>.<span class="highlight"
+        >getQueue</span
+       >();
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       replay()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Replay the current track from the beginning.
+      </p>
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight"
+        >replay</span
+       >();
+      </div>
+     </div>
+    </section>
+
+    <!-- Track Section -->
+    <section class="content-section" id="track">
+     <div class="section-header">
+      <h1 class="section-title">Track</h1>
+      <p class="section-description">
+       Track objects and methods for handling audio track information.
+      </p>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       Track Object
+       <span class="method-type">OBJECT</span>
+      </div>
+      <p class="method-description">
+       Represents an audio track with metadata and playback information.
+      </p>
+
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">track</span> = {
+       <span class="highlight">encoded</span>:
+       <span class="string"
+        >'QAAArQIAJVJpY2sgQXN0bGV5IC0gTmV2ZXIgR29ubmEgR2l2ZSBZb3UgVXA...'</span
+       >, <span class="highlight">info</span>: {
+       <span class="highlight">identifier</span>:
+       <span class="string">'dQw4w9WgXcQ'</span>,
+       <span class="highlight">isSeekable</span>:
+       <span class="keyword">true</span>, <span class="highlight">author</span>:
+       <span class="string">'Rick Astley'</span>,
+       <span class="highlight">length</span>:
+       <span class="highlight">212000</span>,
+       <span class="highlight">isStream</span>:
+       <span class="keyword">false</span>,
+       <span class="highlight">position</span>:
+       <span class="highlight">0</span>, <span class="highlight">title</span>:
+       <span class="string">'Never Gonna Give You Up'</span>,
+       <span class="highlight">uri</span>:
+       <span class="string">'https://www.youtube.com/watch?v=dQw4w9WgXcQ'</span
+       >, <span class="highlight">sourceName</span>:
+       <span class="string">'youtube'</span>
+       } };
+      </div>
+
+      <table class="param-table">
+       <thead>
+        <tr>
+         <th>Property</th>
+         <th>Type</th>
+         <th>Description</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>encoded</td>
+         <td>string</td>
+         <td>Base64 encoded track data</td>
+        </tr>
+        <tr>
+         <td>info.identifier</td>
+         <td>string</td>
+         <td>Unique track identifier</td>
+        </tr>
+        <tr>
+         <td>info.title</td>
+         <td>string</td>
+         <td>Track title</td>
+        </tr>
+        <tr>
+         <td>info.author</td>
+         <td>string</td>
+         <td>Track author/artist</td>
+        </tr>
+        <tr>
+         <td>info.length</td>
+         <td>number</td>
+         <td>Track duration in milliseconds</td>
+        </tr>
+        <tr>
+         <td>info.uri</td>
+         <td>string</td>
+         <td>Original track URI</td>
+        </tr>
+        <tr>
+         <td>info.sourceName</td>
+         <td>string</td>
+         <td>Source platform (youtube, soundcloud, etc.)</td>
+        </tr>
+        <tr>
+         <td>info.isSeekable</td>
+         <td>boolean</td>
+         <td>Whether the track supports seeking</td>
+        </tr>
+        <tr>
+         <td>info.isStream</td>
+         <td>boolean</td>
+         <td>Whether the track is a live stream</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="content-section" id="events">
+     <div class="section-header">
+      <h1 class="section-title">Events</h1>
+      <p class="section-description">
+       Event listeners for handling player, track, lyrics, and node state
+       changes.
+      </p>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       trackStart
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">Fired when a track starts playing.</p>
+      <div class="code-block">
+       aqua.on('trackStart', (player, track) => { console.log('Now playing:',
+       track.info.title); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       trackEnd
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">Fired when a track finishes playing.</p>
+      <div class="code-block">
+       aqua.on('trackEnd', (player, track, reason) => { console.log('Track
+       ended:', reason); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       trackStuck
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">
+       Fired when a track gets stuck during playback.
+      </p>
+      <div class="code-block">
+       aqua.on('trackStuck', (player, track, thresholdMs) => {
+       console.log('Track stuck for', thresholdMs, 'ms'); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       trackError
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">
+       Fired when an error occurs during track playback.
+      </p>
+      <div class="code-block">
+       aqua.on('trackError', (player, track, error) => { console.error('Track
+       error:', error.message); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       socketClosed
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">
+       Fired when the Lavalink socket is closed.
+      </p>
+      <div class="code-block">
+       aqua.on('socketClosed', (player, code, reason) => { console.log('Socket
+       closed:', code, reason); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       lyricsNotFound
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">
+       Fired when lyrics are not found for a track.
+      </p>
+      <div class="code-block">
+       aqua.on('lyricsNotFound', (track) => { console.log('Lyrics not found
+       for:', track.info.title); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       lyricsFound
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">Fired when lyrics are found for a track.</p>
+      <div class="code-block">
+       aqua.on('lyricsFound', (track, lyrics) => { console.log('Lyrics found
+       for:', track.info.title); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       lyricsLine
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">Fired for each line of live lyrics.</p>
+      <div class="code-block">
+       aqua.on('lyricsLine', (line) => { console.log('Lyrics line:', line); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       nodeConnect
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">Fired when a Lavalink node connects.</p>
+      <div class="code-block">
+       aqua.on('nodeConnect', (node) => { console.log('Node connected:',
+       node.options.host); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       nodeDisconnect
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">Fired when a Lavalink node disconnects.</p>
+      <div class="code-block">
+       aqua.on('nodeDisconnect', (node, reason) => { console.log('Node
+       disconnected:', node.options.host, reason); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       nodeError
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">
+       Fired when a Lavalink node encounters an error.
+      </p>
+      <div class="code-block">
+       aqua.on('nodeError', (node, error) => { console.error('Node error:',
+       node.options.host, error.message); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       nodeCreate
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">Fired when a Lavalink node is created.</p>
+      <div class="code-block">
+       aqua.on('nodeCreate', (node) => { console.log('Node created:',
+       node.options.host); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       playerCreate
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">Fired when a player is created.</p>
+      <div class="code-block">
+       aqua.on('playerCreate', (player) => { console.log('Player created for
+       guild:', player.guildId); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       nodeDestroy
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">Fired when a Lavalink node is destroyed.</p>
+      <div class="code-block">
+       aqua.on('nodeDestroy', (node) => { console.log('Node destroyed:',
+       node.options.host); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       playerDestroy
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">Fired when a player is destroyed.</p>
+      <div class="code-block">
+       aqua.on('playerDestroy', (player) => { console.log('Player destroyed for
+       guild:', player.guildId); });
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       debug
+       <span class="event-badge">EVENT</span>
+      </div>
+      <p class="method-description">Fired for debug messages.</p>
+      <div class="code-block">
+       aqua.on('debug', (message) => { console.debug('Debug:', message); });
+      </div>
+     </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="content-section" id="filters">
+     <div class="section-header">
+      <h1 class="section-title">Filters</h1>
+      <p class="section-description">
+       Audio filters and effects for enhancing playback.
+      </p>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setEqualizer(bands)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Set equalizer bands for audio enhancement.
+      </p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setEqualizer</span>(bands);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setKaraoke(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Apply karaoke filter to reduce vocals.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setKaraoke</span>(options);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setTimescale(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Adjust playback speed and pitch.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setTimescale</span>(options);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setTremolo(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Apply tremolo effect (volume oscillation).
+      </p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setTremolo</span>(options);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setVibrato(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">
+       Apply vibrato effect (pitch oscillation).
+      </p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setVibrato</span>(options);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setRotation(rotationHz)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Apply audio rotation effect.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setRotation</span>(rotationHz);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setDistortion(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Apply distortion effect.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setDistortion</span>(options);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setChannelMix(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Apply channel mix effect.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setChannelMix</span>(options);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setLowPass(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Apply low pass filter.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setLowPass</span>(options);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setBassboost(level)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Apply bassboost filter.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setBassboost</span>(level);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setSlowmode(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Apply slowmode filter.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setSlowmode</span>(options);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setNightcore(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Apply nightcore filter.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setNightcore</span>(options);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.setVaporwave(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Apply vaporwave filter.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">setVaporwave</span>(options);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.set8D(options)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Apply 8D audio filter.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">set8D</span>(options);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       filters.clearFilters()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Remove all applied filters.</p>
+      <div class="code-block">
+       <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight"
+        >filters</span
+       >.<span class="highlight">clearFilters</span>();
+      </div>
+     </div>
+    </section>
+
+    <!-- Queue Section -->
+    <section class="content-section" id="queue">
+     <div class="section-header">
+      <h1 class="section-title">Queue</h1>
+      <p class="section-description">
+       Queue management methods for handling track playlists.
+      </p>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       add(track)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Add a track to the queue.</p>
+
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">result</span> =
+       <span class="keyword">await</span>
+       <span class="highlight">client</span>.<span class="highlight">rest</span
+       >.<span class="highlight">loadTracks</span>(<span class="string"
+        >'Never Gonna Give You Up'</span
+       >); <span class="keyword">if</span> (<span class="highlight">result</span
+       >.<span class="highlight">tracks</span>.<span class="highlight"
+        >length</span
+       >
+       > <span class="highlight">0</span>) {
+       <span class="highlight">player</span>.<span class="highlight">queue</span
+       >.<span class="highlight">add</span>(<span class="highlight">result</span
+       >.<span class="highlight">tracks</span>[<span class="highlight">0</span
+       >]); <span class="highlight">console</span>.<span class="highlight"
+        >log</span
+       >(<span class="string">'Track added to queue'</span>); }
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       remove(index)
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Remove a track from the queue by index.</p>
+
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">removedTrack</span> =
+       <span class="highlight">player</span>.<span class="highlight">queue</span
+       >.<span class="highlight">remove</span>(<span class="highlight">1</span
+       >); <span class="highlight">console</span>.<span class="highlight"
+        >log</span
+       >(<span class="string">'Removed:'</span>,
+       <span class="highlight">removedTrack</span>.<span class="highlight"
+        >info</span
+       >.<span class="highlight">title</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       clear()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Clear all tracks from the queue.</p>
+
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight">queue</span
+       >.<span class="highlight">clear</span>();
+       <span class="highlight">console</span>.<span class="highlight">log</span
+       >(<span class="string">'Queue cleared'</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       shuffle()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Shuffle the tracks in the queue.</p>
+
+      <div class="code-block">
+       <span class="highlight">player</span>.<span class="highlight">queue</span
+       >.<span class="highlight">shuffle</span>();
+       <span class="highlight">console</span>.<span class="highlight">log</span
+       >(<span class="string">'Queue shuffled'</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       next()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Skip to the next track in the queue.</p>
+
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">nextTrack</span> =
+       <span class="highlight">player</span>.<span class="highlight">queue</span
+       >.<span class="highlight">next</span>();
+       <span class="keyword">if</span> (<span class="highlight">nextTrack</span
+       >) { <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight">play</span
+       >(<span class="highlight">nextTrack</span>); }
+       <span class="keyword">else</span> {
+       <span class="highlight">console</span>.<span class="highlight">log</span
+       >(<span class="string">'No more tracks in queue'</span>); }
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       previous()
+       <span class="method-type">METHOD</span>
+      </div>
+      <p class="method-description">Go back to the previous track.</p>
+
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">previousTrack</span> =
+       <span class="highlight">player</span>.<span class="highlight">queue</span
+       >.<span class="highlight">previous</span>();
+       <span class="keyword">if</span> (<span class="highlight"
+        >previousTrack</span
+       >) { <span class="keyword">await</span>
+       <span class="highlight">player</span>.<span class="highlight">play</span
+       >(<span class="highlight">previousTrack</span>); }
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       size
+       <span class="method-type">PROPERTY</span>
+      </div>
+      <p class="method-description">Get the current size of the queue.</p>
+
+      <div class="code-block">
+       <span class="highlight">console</span>.<span class="highlight">log</span
+       >(<span class="string">'Queue size:'</span>,
+       <span class="highlight">player</span>.<span class="highlight">queue</span
+       >.<span class="highlight">size</span>);
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       isEmpty
+       <span class="method-type">PROPERTY</span>
+      </div>
+      <p class="method-description">Check if the queue is empty.</p>
+
+      <div class="code-block">
+       <span class="keyword">if</span> (<span class="highlight">player</span
+       >.<span class="highlight">queue</span>.<span class="highlight"
+        >isEmpty</span
+       >) { <span class="highlight">console</span>.<span class="highlight"
+        >log</span
+       >(<span class="string">'Queue is empty'</span>); }
+      </div>
+     </div>
+
+     <div class="method-card">
+      <div class="method-name">
+       current
+       <span class="method-type">PROPERTY</span>
+      </div>
+      <p class="method-description">Get the currently playing track.</p>
+
+      <div class="code-block">
+       <span class="keyword">const</span>
+       <span class="highlight">currentTrack</span> =
+       <span class="highlight">player</span>.<span class="highlight"
+        >current</span
+       >; <span class="keyword">if</span> (<span class="highlight"
+        >currentTrack</span
+       >) { <span class="highlight">console</span>.<span class="highlight"
+        >log</span
+       >(<span class="string">'Now playing:'</span>,
+       <span class="highlight">currentTrack</span>.<span class="highlight"
+        >info</span
+       >.<span class="highlight">title</span>); }
+      </div>
+     </div>
+    </section>
+   </main>
+  </div>
+
+  <script>
+   class StarField {
+    constructor() {
+     this.canvas = document.getElementById('stars-canvas');
+     this.ctx = this.canvas.getContext('2d');
+     this.stars = [];
+     this.numStars = 150;
+     this.animationId = null;
+
+     this.init();
+     this.createStars();
+     this.animate();
+
+     // Handle resize
+     window.addEventListener('resize', () => {
+      this.init();
+      this.createStars();
+     });
+    }
+
+    init() {
+     this.canvas.width = window.innerWidth;
+     this.canvas.height = window.innerHeight;
+    }
+
+    createStars() {
+     this.stars = [];
+     for (let i = 0; i < this.numStars; i++) {
+      this.stars.push({
+       x: Math.random() * this.canvas.width,
+       y: Math.random() * this.canvas.height,
+       size: Math.random() * 2 + 0.5,
+       opacity: Math.random() * 0.8 + 0.2,
+       twinkleSpeed: Math.random() * 0.02 + 0.005,
+       moveSpeed: Math.random() * 0.2 + 0.05,
+       angle: Math.random() * Math.PI * 2,
+       color: this.getStarColor(),
+      });
+     }
+    }
+
+    getStarColor() {
+     const colors = ['#ffffff', '#e2e8f0', '#60a5fa', '#38bdf8', '#1e40ff'];
+     return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    updateStar(star) {
+     // Twinkling effect
+     star.opacity += Math.sin(Date.now() * star.twinkleSpeed) * 0.01;
+     star.opacity = Math.max(0.1, Math.min(0.9, star.opacity));
+
+     // Slow movement
+     star.x += Math.cos(star.angle) * star.moveSpeed;
+     star.y += Math.sin(star.angle) * star.moveSpeed;
+
+     // Wrap around edges
+     if (star.x < 0) star.x = this.canvas.width;
+     if (star.x > this.canvas.width) star.x = 0;
+     if (star.y < 0) star.y = this.canvas.height;
+     if (star.y > this.canvas.height) star.y = 0;
+    }
+
+    drawStar(star) {
+     this.ctx.save();
+     this.ctx.globalAlpha = star.opacity;
+     this.ctx.fillStyle = star.color;
+
+     // Create a subtle glow effect
+     this.ctx.shadowColor = star.color;
+     this.ctx.shadowBlur = star.size * 2;
+
+     this.ctx.beginPath();
+     this.ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+     this.ctx.fill();
+
+     // Add a smaller bright center
+     this.ctx.globalAlpha = star.opacity * 1.5;
+     this.ctx.shadowBlur = 0;
+     this.ctx.beginPath();
+     this.ctx.arc(star.x, star.y, star.size * 0.3, 0, Math.PI * 2);
+     this.ctx.fill();
+
+     this.ctx.restore();
+    }
+
+    animate() {
+     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+     this.stars.forEach((star) => {
+      this.updateStar(star);
+      this.drawStar(star);
+     });
+
+     this.animationId = requestAnimationFrame(() => this.animate());
+    }
+
+    destroy() {
+     if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+     }
+    }
+   }
+
+   // Sidebar hover handling for desktop
+   function handleSidebarHover() {
+    const sidebar = document.getElementById('sidebar');
+    const trigger = document.querySelector('.sidebar-trigger');
+
+    // Show sidebar on hover (desktop only)
+    if (window.innerWidth > 768) {
+     trigger.addEventListener('mouseenter', () => {
+      sidebar.classList.add('sidebar-hover');
+      sidebar.style.opacity = '1';
+      sidebar.style.pointerEvents = 'auto';
+      sidebar.style.transform = 'translateX(0)';
+     });
+
+     trigger.addEventListener('mouseleave', () => {
+      // Only hide if not hovering sidebar itself
+      setTimeout(() => {
+       if (!sidebar.matches(':hover')) {
+        sidebar.classList.remove('sidebar-hover');
+        sidebar.style.opacity = '';
+        sidebar.style.pointerEvents = '';
+        sidebar.style.transform = '';
+       }
+      }, 100);
+     });
+
+     sidebar.addEventListener('mouseleave', () => {
+      sidebar.classList.remove('sidebar-hover');
+      sidebar.style.opacity = '';
+      sidebar.style.pointerEvents = '';
+      sidebar.style.transform = '';
+     });
+    }
+   }
+
+   document.addEventListener('DOMContentLoaded', () => {
+    new StarField();
+    handleSidebarHover();
+   });
+
+   // Simple navigation interaction
+   document.querySelectorAll('.nav-item').forEach((item) => {
+    item.addEventListener('click', (e) => {
+     e.preventDefault();
+     document
+      .querySelectorAll('.nav-item')
+      .forEach((nav) => nav.classList.remove('active'));
+     e.target.classList.add('active');
+    });
+   });
+   const toggleButton = document.querySelector('.mobile-toggle');
+
+   toggleButton.addEventListener('click', () => {
+    sidebar.classList.toggle('mobile-open');
+   });
+
+   // Navigation functionality
+   function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.content-section').forEach((section) => {
+     section.classList.remove('active');
+    });
+
+    // Show selected section
+    document.getElementById(sectionId).classList.add('active');
+
+    // Update nav items
+    document.querySelectorAll('.nav-item').forEach((item) => {
+     item.classList.remove('active');
+    });
+
+    document
+     .querySelector(`[data-section="${sectionId}"]`)
+     .classList.add('active');
+   }
+
+   // Add click handlers to nav items
+   document.querySelectorAll('.nav-item').forEach((item) => {
+    item.addEventListener('click', (e) => {
+     e.preventDefault();
+     const section = item.getAttribute('data-section');
+     showSection(section);
+    });
+   });
+
+   // Mobile sidebar toggle
+   function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('mobile-open');
+   }
+
+   // Search functionality
+   document.getElementById('searchInput').addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    const navItems = document.querySelectorAll('.nav-item');
+
+    navItems.forEach((item) => {
+     const text = item.textContent.toLowerCase();
+     if (text.includes(query) || query === '') {
+      item.style.display = 'block';
+     } else {
+      item.style.display = 'none';
+     }
+    });
+   });
+
+   // Close mobile sidebar when clicking outside
+   document.addEventListener('click', (e) => {
+    const sidebar = document.getElementById('sidebar');
+    const toggle = document.querySelector('.mobile-toggle');
+
+    if (
+     window.innerWidth <= 768 &&
+     !sidebar.contains(e.target) &&
+     !toggle.contains(e.target)
+    ) {
+     sidebar.classList.remove('mobile-open');
+    }
+   });
+
+   // Smooth scrolling for method cards
+   document.querySelectorAll('.method-card').forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+     card.style.transform = 'translateY(-4px)';
+    });
+
+    card.addEventListener('mouseleave', () => {
+     card.style.transform = 'translateY(-2px)';
+    });
+   });
+  </script>
+ </body>
 </html>
