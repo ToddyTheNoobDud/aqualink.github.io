@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Discord Music Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3; /* Low opacity for subtle starfield */
+            z-index: -1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.05); /* Semi-transparent background for modern look */
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px); /* Blur effect for glassmorphism */
+            text-align: left;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .avatar-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        h2 {
+            font-weight: 400;
+            margin-top: 40px;
+            color: #e0e0e0;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        p, li {
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        a {
+            color: #bb86fc;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #ffffff;
+        }
+
+        /* Smooth fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content > * {
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .content > *:nth-child(1) { animation-delay: 0.2s; }
+        .content > *:nth-child(2) { animation-delay: 0.4s; }
+        .content > *:nth-child(3) { animation-delay: 0.6s; }
+        .content > *:nth-child(4) { animation-delay: 0.8s; }
+        .content > *:nth-child(5) { animation-delay: 1.0s; }
+        .content > *:nth-child(6) { animation-delay: 1.2s; }
+    </style>
+</head>
+<body>
+    <canvas id="starfield"></canvas>
+    <div class="content">
+        <div class="avatar-container">
+            <img src="https://raw.githubusercontent.com/ToddyTheNoobDud/toddythenoobdud.github.io/f3a4cafa90d957f3e6157722c2c812dd678aae13/0a0f3c0476c8b495838fa6a94c7e88c2.png" alt="Avatar" class="avatar">
+        </div>
+        <h1>Privacy Policy for Kenium</h1>
+        <p>This privacy policy outlines the data we collect and store for the Discord Music Bot, as well as how you can manage or delete that data.</p>
+
+        <h2>Data We Store</h2>
+        <p>We store the following information to enable certain features of the bot:</p>
+        <ul>
+            <li><strong>For the 24/7 Command:</strong> GuildId, textChannel, and voiceChannel. This allows the bot to maintain persistent connections in servers where the 24/7 feature is enabled.</li>
+            <li><strong>For Playlists:</strong> userId and tracks. This stores user-specific playlist data to allow saving and loading custom playlists.</li>
+        </ul>
+
+        <h2>How We Use Your Data</h2>
+        <p>The data is used solely to provide the bot's functionality, such as keeping music playing 24/7 in a voice channel or managing user playlists. We do not share this data with third parties, and it is stored securely.</p>
+
+        <h2>How to Delete Your Data</h2>
+        <p>You have full control over your data. It can be deleted in the following ways:</p>
+        <ul>
+            <li>Disable the 24/7 feature in your server, which will automatically delete the associated GuildId, textChannel, and voiceChannel data.</li>
+            <li>Use the playlist delete command in Discord to remove your playlists, which will delete the userId and tracks data for those playlists.</li>
+            <li>If you need further assistance or want to request deletion of any remaining data, contact me directly at "mushroom0162".</li>
+        </ul>
+
+        <p>This policy may be updated from time to time. For any questions, reach out via the contact method above.</p>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        let stars = [];
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            generateStars();
+            animate();
+        }
+
+        // Generate stars with random properties
+        function generateStars() {
+            stars = [];
+            for (let i = 0; i < 1500; i++) { // Increased number for denser field
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    alpha: Math.random() * 0.5 + 0.5,
+                    twinkleSpeed: Math.random() * 0.02 + 0.01 // For smooth twinkling
+                });
+            }
+        }
+
+        // Draw stars with twinkling
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                star.alpha = Math.sin(Date.now() * star.twinkleSpeed) * 0.3 + 0.7; // Smooth sine wave twinkle
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+                ctx.fill();
+            });
+        }
+
+        // Animation loop for smoother performance
+        function animate() {
+            drawStars();
+            requestAnimationFrame(animate);
+        }
+
+        // Initial setup and resize listener
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+    </script>
+</body>
+</html>
